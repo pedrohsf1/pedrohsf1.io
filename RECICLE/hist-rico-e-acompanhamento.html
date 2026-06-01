@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE-CICLE - Histórico e Acompanhamento</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="p-gina-principal.html" class="logo">
+        <img src="images/navbar.png" alt="RE-CICLE">
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="mainNav">
+        <a href="p-gina-principal.html">Página Inicial</a>
+        <a href="registro-de-res-duos.html">Mapa/Cadastro de Resíduos</a>
+        <a href="hist-rico-e-acompanhamento.html" class="active">Histórico e Acompanhamento</a>
+        <a href="dicas-sustent-veis.html">Dicas Sustentáveis</a>
+        <a href="suporte.html">Suporte</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>Histórico e Acompanhamento</h1>
+      <p>Visualize todos os registros e acompanhe seu impacto ambiental.</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-mini">
+        <div class="num">156</div>
+        <div class="label">Total coletado (kg)</div>
+      </div>
+      <div class="stat-mini">
+        <div class="num">18</div>
+        <div class="label">Coletas realizadas</div>
+      </div>
+      <div class="stat-mini">
+        <div class="num">3</div>
+        <div class="label">Pendências</div>
+      </div>
+      <div class="stat-mini">
+        <div class="num">Papel</div>
+        <div class="label">Tipo mais frequente</div>
+      </div>
+    </div>
+
+    <div class="two-column">
+      <div>
+        <div class="search-bar">
+          <input type="text" class="form-input" id="searchInput" placeholder="Buscar registros..." style="flex:1;">
+          <select class="form-select" id="filterStatus">
+            <option value="">Todos os status</option>
+            <option value="concluido">Concluído</option>
+            <option value="andamento">Em andamento</option>
+            <option value="pendente">Pendente</option>
+          </select>
+          <select class="form-select" id="filterTipo">
+            <option value="">Todos os tipos</option>
+            <option value="papel">Papel</option>
+            <option value="plastico">Plástico</option>
+            <option value="vidro">Vidro</option>
+            <option value="metal">Metal</option>
+            <option value="organico">Orgânico</option>
+            <option value="eletronico">Eletrônico</option>
+          </select>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Quantidade</th>
+                <th>Localidade</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01/06/2026</td>
+                <td>Papel</td>
+                <td>2,5 kg</td>
+                <td>Centro</td>
+                <td><span class="badge badge-success">Concluído</span></td>
+              </tr>
+              <tr>
+                <td>28/05/2026</td>
+                <td>Plástico</td>
+                <td>1,2 kg</td>
+                <td>Zona Sul</td>
+                <td><span class="badge badge-warning">Em andamento</span></td>
+              </tr>
+              <tr>
+                <td>25/05/2026</td>
+                <td>Vidro</td>
+                <td>3,0 kg</td>
+                <td>Centro</td>
+                <td><span class="badge badge-success">Concluído</span></td>
+              </tr>
+              <tr>
+                <td>20/05/2026</td>
+                <td>Orgânico</td>
+                <td>5,0 kg</td>
+                <td>Jardim América</td>
+                <td><span class="badge badge-info">Em processo</span></td>
+              </tr>
+              <tr>
+                <td>15/05/2026</td>
+                <td>Metal</td>
+                <td>0,8 kg</td>
+                <td>Zona Norte</td>
+                <td><span class="badge badge-success">Concluído</span></td>
+              </tr>
+              <tr>
+                <td>10/05/2026</td>
+                <td>Eletrônico</td>
+                <td>0,5 kg</td>
+                <td>Zona Sul</td>
+                <td><span class="badge badge-warning">Pendente</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1.15rem; font-weight:600; margin-bottom:16px;">Calendário</h3>
+        <div class="calendar-placeholder">
+          <div class="month">Junho 2026</div>
+          <div class="calendar-grid">
+            <span class="day-name">Dom</span>
+            <span class="day-name">Seg</span>
+            <span class="day-name">Ter</span>
+            <span class="day-name">Qua</span>
+            <span class="day-name">Qui</span>
+            <span class="day-name">Sex</span>
+            <span class="day-name">Sáb</span>
+            <span class="day"></span>
+            <span class="day"></span>
+            <span class="day"></span>
+            <span class="day"></span>
+            <span class="day"></span>
+            <span class="day"></span>
+            <span class="day">1</span>
+            <span class="day has-event">2</span>
+            <span class="day">3</span>
+            <span class="day">4</span>
+            <span class="day">5</span>
+            <span class="day">6</span>
+            <span class="day">7</span>
+            <span class="day">8</span>
+            <span class="day">9</span>
+            <span class="day">10</span>
+            <span class="day has-event">11</span>
+            <span class="day">12</span>
+            <span class="day">13</span>
+            <span class="day">14</span>
+            <span class="day">15</span>
+            <span class="day">16</span>
+            <span class="day">17</span>
+            <span class="day has-event">18</span>
+            <span class="day">19</span>
+            <span class="day">20</span>
+            <span class="day">21</span>
+            <span class="day">22</span>
+            <span class="day">23</span>
+            <span class="day">24</span>
+            <span class="day">25</span>
+            <span class="day has-event">26</span>
+            <span class="day">27</span>
+            <span class="day">28</span>
+            <span class="day">29</span>
+            <span class="day today">30</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+
+  <script>
+    document.getElementById('menuToggle')?.addEventListener('click', function() {
+      document.getElementById('mainNav')?.classList.toggle('open');
+    });
+
+    document.getElementById('searchInput')?.addEventListener('input', function() {
+      alert('Buscando por: ' + this.value);
+    });
+
+    document.getElementById('filterStatus')?.addEventListener('change', function() {
+      alert('Filtrando por status: ' + this.value);
+    });
+
+    document.getElementById('filterTipo')?.addEventListener('change', function() {
+      alert('Filtrando por tipo: ' + this.value);
+    });
+  </script>
+</body>
+</html>

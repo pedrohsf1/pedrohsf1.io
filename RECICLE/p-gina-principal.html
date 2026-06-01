@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE-CICLE - Página Inicial</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="p-gina-principal.html" class="logo">
+<img src="images/navbar.png" alt="RE-CICLE">
+        </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="mainNav">
+        <a href="p-gina-principal.html" class="active">Página Inicial</a>
+        <a href="registro-de-res-duos.html">Mapa/Cadastro de Resíduos</a>
+        <a href="hist-rico-e-acompanhamento.html">Histórico e Acompanhamento</a>
+        <a href="dicas-sustent-veis.html">Dicas Sustentáveis</a>
+        <a href="suporte.html">Suporte</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="home-split">
+    <div class="home-left">
+      <img src="images/logo.png" alt="RE-CICLE" class="home-logo">
+      <img src="images/nome.png" alt="RE-CICLE" class="home-nome">
+      <p class="home-tagline">Registre, acompanhe e reduza seus resíduos com nossa plataforma inteligente de gestão ambiental.</p>
+      <div class="home-buttons">
+        <a href="registro-de-res-duos.html" class="btn btn-primary">Mapa/Cadastro</a>
+        <a href="hist-rico-e-acompanhamento.html" class="btn btn-outline">Histórico</a>
+      </div>
+    </div>
+    <div class="home-right">
+      <div class="home-right-inner">
+        <h2 class="home-right-title">Como funciona?</h2>
+        <div class="home-steps">
+          <div class="home-step">
+            <div class="home-step-num">1</div>
+            <div>
+              <h4>Separar resíduos</h4>
+              <p>Papel, plástico, vidro, metal, orgânicos e eletrônicos.</p>
+            </div>
+          </div>
+          <div class="home-step">
+            <div class="home-step-num">2</div>
+            <div>
+              <h4>Consultar mapa</h4>
+              <p>Encontre pontos de coleta mais próximos.</p>
+            </div>
+          </div>
+          <div class="home-step">
+            <div class="home-step-num">3</div>
+            <div>
+              <h4>Localizar pontos</h4>
+              <p>Veja horários e contato de cada local.</p>
+            </div>
+          </div>
+          <div class="home-step">
+            <div class="home-step-num">4</div>
+            <div>
+              <h4>Acompanhar</h4>
+              <p>Monitore seu impacto ambiental.</p>
+            </div>
+          </div>
+        </div>
+        <p class="home-about">O RE-CICLE conecta geradores de resíduos a pontos de coleta, facilitando o descarte correto e promovendo a sustentabilidade.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('menuToggle')?.addEventListener('click', function() {
+      document.getElementById('mainNav')?.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

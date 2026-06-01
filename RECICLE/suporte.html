@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE-CICLE - Suporte</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="p-gina-principal.html" class="logo">
+        <img src="images/navbar.png" alt="RE-CICLE">
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="mainNav">
+        <a href="p-gina-principal.html">Página Inicial</a>
+        <a href="registro-de-res-duos.html">Mapa/Cadastro de Resíduos</a>
+        <a href="hist-rico-e-acompanhamento.html">Histórico e Acompanhamento</a>
+        <a href="dicas-sustent-veis.html">Dicas Sustentáveis</a>
+        <a href="suporte.html" class="active">Suporte</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>Suporte</h1>
+      <p>Tire suas dúvidas ou entre em contato conosco.</p>
+    </div>
+
+    <div class="split-layout">
+      <div class="faq-list">
+        <h3>Perguntas Frequentes</h3>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            O que é o RE-CICLE?
+            <span class="icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            O RE-CICLE é uma plataforma de gestão de resíduos que conecta geradores a pontos de coleta, facilitando o descarte correto e promovendo a sustentabilidade.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Como cadastrar um resíduo?
+            <span class="icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            Acesse "Mapa/Cadastro de Resíduos", preencha o formulário com tipo, quantidade, localidade e observações, e clique em "Registrar e Acionar Coleta".
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Quais tipos de resíduos são aceitos?
+            <span class="icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            Aceitamos papel/papelão, plástico, vidro, metal, resíduos orgânicos, eletrônicos e perigosos. Cada tipo possui pontos de coleta específicos.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Como funciona a coleta?
+            <span class="icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            Após registrar o resíduo, a coleta é acionada para o ponto mais próximo. Você pode acompanhar o status no histórico.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            O serviço é gratuito?
+            <span class="icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            Sim! O RE-CICLE oferece um plano gratuito com todas as funcionalidades básicas.
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <h3>Entre em Contato</h3>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="contatoNome">Nome</label>
+            <input type="text" id="contatoNome" class="form-input" placeholder="Seu nome" required>
+          </div>
+          <div class="form-group">
+            <label for="contatoEmail">E-mail</label>
+            <input type="email" id="contatoEmail" class="form-input" placeholder="seu@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="tipoMensagem">Tipo da mensagem</label>
+            <select id="tipoMensagem" class="form-select" required>
+              <option value="">Selecione...</option>
+              <option value="duvida">Dúvida</option>
+              <option value="sugestao">Sugestão</option>
+              <option value="reclamacao">Reclamação</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" class="form-textarea" placeholder="Descreva sua mensagem..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar Mensagem</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+
+
+  <script>
+    document.getElementById('menuToggle')?.addEventListener('click', function() {
+      document.getElementById('mainNav')?.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const item = this.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE-CICLE - Cadastro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card wide">
+      <a href="p-gina-principal.html" class="logo">
+        <img src="images/navbar.png" alt="RE-CICLE">
+      </a>
+      <h2>Criar Conta</h2>
+      <p class="subtitle">Cadastre sua organização para começar</p>
+
+      <form id="registerForm">
+        <div class="form-section-title">Dados da Organização</div>
+
+        <div class="form-group">
+          <label for="nomeOrg">Nome</label>
+          <input type="text" id="nomeOrg" class="form-input" placeholder="Nome da organização" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="razaoSocial">Razão Social</label>
+            <input type="text" id="razaoSocial" class="form-input" placeholder="Razão social" required>
+          </div>
+          <div class="form-group">
+            <label for="documento">CNPJ / CPF</label>
+            <input type="text" id="documento" class="form-input" placeholder="00.000.000/0001-00" required>
+          </div>
+        </div>
+
+        <div class="form-section-title">Dados do Representante</div>
+
+        <div class="form-group">
+          <label for="nomeRep">Nome</label>
+          <input type="text" id="nomeRep" class="form-input" placeholder="Nome completo" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="emailRep">E-mail</label>
+            <input type="email" id="emailRep" class="form-input" placeholder="email@provedor.com" required>
+          </div>
+          <div class="form-group">
+            <label for="cargo">Cargo</label>
+            <input type="text" id="cargo" class="form-input" placeholder="Seu cargo" required>
+          </div>
+        </div>
+
+        <div class="form-section-title">Tipo de Cadastro</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:16px; border:2px solid var(--border); border-radius:var(--radius-sm); transition:var(--transition);" for="tipoContratante">
+              <input type="radio" name="tipo" id="tipoContratante" value="contratante" checked>
+              <span>Empresa Contratante</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:16px; border:2px solid var(--border); border-radius:var(--radius-sm); transition:var(--transition);" for="tipoColetora">
+              <input type="radio" name="tipo" id="tipoColetora" value="coletora">
+              <span>Empresa Coletora</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg mt-2">Criar Conta</button>
+      </form>
+
+      <p class="subtitle mt-3">
+        Já tem conta? <a href="login.html">Faça login</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('registerForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Conta criada com sucesso!');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

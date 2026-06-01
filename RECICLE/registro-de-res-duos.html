@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE-CICLE - Mapa/Cadastro de Resíduos</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="p-gina-principal.html" class="logo">
+        <img src="images/navbar.png" alt="RE-CICLE">
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="mainNav">
+        <a href="p-gina-principal.html">Página Inicial</a>
+        <a href="registro-de-res-duos.html" class="active">Mapa/Cadastro de Resíduos</a>
+        <a href="hist-rico-e-acompanhamento.html">Histórico e Acompanhamento</a>
+        <a href="dicas-sustent-veis.html">Dicas Sustentáveis</a>
+        <a href="suporte.html">Suporte</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>Mapa/Cadastro de Resíduos</h1>
+      <p>Registre seus resíduos e encontre pontos de coleta próximos.</p>
+    </div>
+
+    <div class="split-layout">
+      <div>
+        <div class="card">
+          <h3 style="font-size:1.15rem; font-weight:600; margin-bottom:24px;">Registrar Resíduo</h3>
+          <form id="wasteForm">
+            <div class="form-group">
+              <label for="tipo">Tipo de Resíduo</label>
+              <select id="tipo" class="form-select" required>
+                <option value="">Selecione...</option>
+                <option value="papel">Papel / Papelão</option>
+                <option value="plastico">Plástico</option>
+                <option value="vidro">Vidro</option>
+                <option value="metal">Metal</option>
+                <option value="organico">Orgânico</option>
+                <option value="eletronico">Eletrônico</option>
+                <option value="perigoso">Perigoso</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="quantidade">Quantidade (kg)</label>
+                <input type="number" id="quantidade" class="form-input" step="0.1" min="0" placeholder="0.0" required>
+              </div>
+              <div class="form-group">
+                <label for="localidade">Localidade</label>
+                <input type="text" id="localidade" class="form-input" placeholder="Bairro, cidade" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="obs">Observações</label>
+              <textarea id="obs" class="form-textarea" placeholder="Informações adicionais sobre o resíduo..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar e Acionar Coleta</button>
+          </form>
+        </div>
+
+        <div class="filter-pills" style="margin-top:20px;">
+          <button class="filter-pill active">Todos</button>
+          <button class="filter-pill">Papel</button>
+          <button class="filter-pill">Plástico</button>
+          <button class="filter-pill">Vidro</button>
+          <button class="filter-pill">Metal</button>
+          <button class="filter-pill">Orgânico</button>
+          <button class="filter-pill">Eletrônico</button>
+        </div>
+
+        <div class="collection-points">
+          <h3>Pontos de Coleta</h3>
+          <div class="point-card">
+            <div class="point-icon">♻</div>
+            <div class="point-info">
+              <h4>Ecoponto Centro</h4>
+              <p>Rua das Flores, 150 - Centro • 7h às 19h</p>
+            </div>
+            <button class="point-favorite">☆</button>
+          </div>
+          <div class="point-card">
+            <div class="point-icon">♻</div>
+            <div class="point-info">
+              <h4>PEV Zona Sul</h4>
+              <p>Av. Paulista, 2000 - Paraíso • 8h às 18h</p>
+            </div>
+            <button class="point-favorite active">★</button>
+          </div>
+          <div class="point-card">
+            <div class="point-icon">♻</div>
+            <div class="point-info">
+              <h4>Coleta Seletiva - Jardim América</h4>
+              <p>Rua Augusta, 500 • 6h às 12h</p>
+            </div>
+            <button class="point-favorite">☆</button>
+          </div>
+          <div class="point-card">
+            <div class="point-icon">♻</div>
+            <div class="point-info">
+              <h4>Ecoponto Zona Norte</h4>
+              <p>Av. Brás Leme, 800 • 7h às 17h</p>
+            </div>
+            <button class="point-favorite">☆</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1.15rem; font-weight:600; margin-bottom:16px;">Mapa</h3>
+        <div id="map" style="height:520px; border-radius:var(--radius); border:1px solid var(--border); z-index:0;"></div>
+
+        <div style="margin-top:24px; padding:20px; background:var(--white); border-radius:var(--radius-sm); border:1px solid var(--border);">
+          <h4 style="font-size:0.95rem; font-weight:600; margin-bottom:12px;">Legenda dos Pontos</h4>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:0.85rem;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="width:16px; height:16px; border-radius:50%; background:#4CAF50; display:inline-block;"></span>
+              <span>Papel / Papelão</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="width:16px; height:16px; border-radius:50%; background:#F44336; display:inline-block;"></span>
+              <span>Plástico</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="width:16px; height:16px; border-radius:50%; background:#2196F3; display:inline-block;"></span>
+              <span>Vidro</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="width:16px; height:16px; border-radius:50%; background:#FF9800; display:inline-block;"></span>
+              <span>Metal</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="width:16px; height:16px; border-radius:50%; background:#795548; display:inline-block;"></span>
+              <span>Orgânico</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="width:16px; height:16px; border-radius:50%; background:#9C27B0; display:inline-block;"></span>
+              <span>Eletrônico</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    document.getElementById('menuToggle')?.addEventListener('click', function() {
+      document.getElementById('mainNav')?.classList.toggle('open');
+    });
+
+    document.getElementById('wasteForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Resíduo registrado! Coleta acionada com sucesso.');
+      window.location.href = 'hist-rico-e-acompanhamento.html';
+    });
+
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+      pill.addEventListener('click', function() {
+        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.point-favorite').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        this.textContent = this.classList.contains('active') ? '★' : '☆';
+      });
+    });
+
+    var map = L.map('map').setView([-23.5505, -46.6333], 12);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO',
+      maxZoom: 18
+    }).addTo(map);
+
+    var points = [
+      { name: 'Ecoponto Centro', lat: -23.5475, lng: -46.6361, type: 'Papel, Plástico, Vidro' },
+      { name: 'PEV Zona Sul', lat: -23.5677, lng: -46.6486, type: 'Eletrônicos, Metal' },
+      { name: 'Coleta Seletiva - Jd. América', lat: -23.5587, lng: -46.6701, type: 'Papel, Plástico' },
+      { name: 'Ecoponto Zona Norte', lat: -23.5308, lng: -46.6301, type: 'Orgânico, Vidro' }
+    ];
+
+    points.forEach(function(p) {
+      L.marker([p.lat, p.lng])
+        .addTo(map)
+        .bindPopup('<strong>' + p.name + '</strong><br>' + p.type);
+    });
+  </script>
+</body>
+</html>

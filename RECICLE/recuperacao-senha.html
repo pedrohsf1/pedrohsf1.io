@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE-CICLE - Recuperar Senha</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <a href="p-gina-principal.html" class="logo">
+        <img src="images/navbar.png" alt="RE-CICLE">
+      </a>
+      <h2>Recuperar Senha</h2>
+      <p class="subtitle">Defina uma nova senha para sua conta</p>
+
+      <form id="recoveryForm">
+        <div class="form-group">
+          <label for="novaSenha">Nova senha</label>
+          <input type="password" id="novaSenha" class="form-input" placeholder="Digite a nova senha" required>
+        </div>
+        <div class="form-group">
+          <label for="confirmarSenha">Confirmar senha</label>
+          <input type="password" id="confirmarSenha" class="form-input" placeholder="Repita a nova senha" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Redefinir senha</button>
+      </form>
+
+      <p class="subtitle mt-3">
+        <a href="login.html">Voltar para o login</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('recoveryForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nova = document.getElementById('novaSenha')?.value;
+      const confirmar = document.getElementById('confirmarSenha')?.value;
+      if (nova !== confirmar) {
+        alert('As senhas não conferem!');
+        return;
+      }
+      alert('Senha redefinida com sucesso!');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>
