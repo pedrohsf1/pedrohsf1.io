@@ -10,15 +10,15 @@
 <body>
   <header class="header">
     <div class="header-inner">
-      <a href="p-gina-principal.html" class="logo">
+      <a href="pagina-principal.html" class="logo">
         <img src="images/navbar.png" alt="RE-CICLE">
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
       <nav class="nav" id="mainNav">
-        <a href="p-gina-principal.html">Página Inicial</a>
-        <a href="registro-de-res-duos.html" class="active">Mapa/Cadastro de Resíduos</a>
-        <a href="hist-rico-e-acompanhamento.html">Histórico e Acompanhamento</a>
-        <a href="dicas-sustent-veis.html">Dicas Sustentáveis</a>
+        <a href="pagina-principal.html">Página Inicial</a>
+        <a href="registro-de-residuos.html" class="active">Mapa/Cadastro de Resíduos</a>
+        <a href="historico-e-acompanhamento.html">Histórico e Acompanhamento</a>
+        <a href="dicas-sustentaveis.html">Dicas Sustentáveis</a>
         <a href="suporte.html">Suporte</a>
       </nav>
     </div>
@@ -162,7 +162,7 @@
     document.getElementById('wasteForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
       alert('Resíduo registrado! Coleta acionada com sucesso.');
-      window.location.href = 'hist-rico-e-acompanhamento.html';
+      window.location.href = 'historico-e-acompanhamento.html';
     });
 
     document.querySelectorAll('.filter-pill').forEach(pill => {
