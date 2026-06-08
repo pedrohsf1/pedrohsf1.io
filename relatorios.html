@@ -133,7 +133,7 @@
       var concluidos = 0;
 
       historico.forEach(function(r) {
-        var kg = parseFloat(r.quantidade) || 0;
+        var kg = parseFloat(r.qtde) || 0;
         totalKg += kg;
         var tipo = r.tipo || "outro";
         porTipo[tipo] = (porTipo[tipo] || 0) + kg;
@@ -233,8 +233,8 @@
           '<div class="timeline-item">' +
             '<div class="timeline-dot" style="background:' + statusCor + ';"></div>' +
             '<div class="timeline-content">' +
-              '<div class="title">' + (ROTULOS_TIPO[r.tipo] || r.tipo) + ' — ' + r.quantidade + 'kg</div>' +
-              '<div class="desc">' + (r.localidade || "Local não informado") + ' · ' + statusLabel + '</div>' +
+              '<div class="title">' + (ROTULOS_TIPO[r.tipo] || r.tipo) + ' — ' + r.qtde + 'kg</div>' +
+              '<div class="desc">' + (r.local || "Local não informado") + ' · ' + statusLabel + '</div>' +
               '<div class="date">' + dataStr + '</div>' +
             '</div>' +
           '</div>'
