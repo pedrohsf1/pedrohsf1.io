@@ -12,46 +12,43 @@
       <a href="pagina-principal.html" class="logo">
         <img src="images/navbar.png" alt="RE-CICLE">
       </a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
-      <nav class="nav" id="mainNav">
-        <a href="pagina-principal.html">Página Inicial</a>
-        <a href="registro-de-residuos.html">Mapa/Cadastro de Resíduos</a>
-        <a href="historico-e-acompanhamento.html" class="active">Histórico e Acompanhamento</a>
-        <a href="dicas-sustentaveis.html">Dicas Sustentáveis</a>
-        <a href="suporte.html">Suporte</a>
+      <button class="menu-toggle" id="alternarMenu" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="navPrincipal">
+        <a href="pagina-principal.html" data-perfis="tutor,candidato,ong,prefeitura">Página Inicial</a>
+        <a href="registro-de-residuos.html" data-perfis="candidato,ong">Mapa/Cadastro de Resíduos</a>
+        <a href="historico-e-acompanhamento.html" class="active" data-perfis="tutor,candidato,ong,prefeitura">Histórico e Acompanhamento</a>
+        <a href="dicas-sustentaveis.html" data-perfis="tutor,candidato,ong,prefeitura">Dicas Sustentáveis</a>
+        <a href="relatorios.html" data-perfis="tutor,candidato,ong,prefeitura">Relatórios</a>
+        <a href="gerenciar-usuario.html" data-perfis="tutor,candidato,ong,prefeitura">Gerenciar Usuário</a>
+        <a href="suporte.html" data-perfis="tutor,candidato,ong,prefeitura">Suporte</a>
+        <span class="nav-user" id="usuarioNav"></span>
+        <button class="btn-logout" id="btnSair" title="Sair">Sair</button>
       </nav>
     </div>
   </header>
 
   <main class="main">
-    <div class="page-header">
-      <h1>Histórico e Acompanhamento</h1>
-      <p>Visualize todos os registros e acompanhe seu impacto ambiental.</p>
-    </div>
-
-    <div class="stats-row">
-      <div class="stat-mini">
-        <div class="num">156</div>
-        <div class="label">Total coletado (kg)</div>
-      </div>
-      <div class="stat-mini">
-        <div class="num">18</div>
-        <div class="label">Coletas realizadas</div>
-      </div>
-      <div class="stat-mini">
-        <div class="num">3</div>
-        <div class="label">Pendências</div>
-      </div>
-      <div class="stat-mini">
-        <div class="num">Papel</div>
-        <div class="label">Tipo mais frequente</div>
-      </div>
-    </div>
-
-    <div class="two-column">
+    <div class="cabecalho-pagina flex-header">
       <div>
-        <div class="search-bar">
-          <input type="text" class="form-input" id="searchInput" placeholder="Buscar registros..." style="flex:1;">
+        <h1>Histórico e Acompanhamento</h1>
+        <p>Visualize todos os registros e acompanhe seu impacto ambiental.</p>
+      </div>
+      <div id="histAdminBar" style="display:none;">
+        <button class="btn btn-primary btn-sm" id="btnSeedData">Adicionar registros de exemplo</button>
+      </div>
+    </div>
+
+    <div class="linha-stats" id="statsRow">
+      <div class="mini-stat"><div class="num" id="statTotal">0</div><div class="label">Total coletado (kg)</div></div>
+      <div class="mini-stat"><div class="num" id="statColetas">0</div><div class="label">Coletas realizadas</div></div>
+      <div class="mini-stat"><div class="num" id="statPendencias">0</div><div class="label">Pendências</div></div>
+      <div class="mini-stat"><div class="num" id="statTipoFreq">-</div><div class="label">Tipo mais frequente</div></div>
+    </div>
+
+    <div class="duas-colunas">
+      <div>
+        <div class="barra-busca">
+          <input type="text" class="form-input" id="searchInput" placeholder="Buscar registros...">
           <select class="form-select" id="filterStatus">
             <option value="">Todos os status</option>
             <option value="concluido">Concluído</option>
@@ -69,7 +66,7 @@
           </select>
         </div>
 
-        <div class="table-wrapper">
+        <div class="tabela-wrapper">
           <table>
             <thead>
               <tr>
@@ -78,128 +75,355 @@
                 <th>Quantidade</th>
                 <th>Localidade</th>
                 <th>Status</th>
+                <th id="thActions" style="display:none;">Ações</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>01/06/2026</td>
-                <td>Papel</td>
-                <td>2,5 kg</td>
-                <td>Centro</td>
-                <td><span class="badge badge-success">Concluído</span></td>
-              </tr>
-              <tr>
-                <td>28/05/2026</td>
-                <td>Plástico</td>
-                <td>1,2 kg</td>
-                <td>Zona Sul</td>
-                <td><span class="badge badge-warning">Em andamento</span></td>
-              </tr>
-              <tr>
-                <td>25/05/2026</td>
-                <td>Vidro</td>
-                <td>3,0 kg</td>
-                <td>Centro</td>
-                <td><span class="badge badge-success">Concluído</span></td>
-              </tr>
-              <tr>
-                <td>20/05/2026</td>
-                <td>Orgânico</td>
-                <td>5,0 kg</td>
-                <td>Jardim América</td>
-                <td><span class="badge badge-info">Em processo</span></td>
-              </tr>
-              <tr>
-                <td>15/05/2026</td>
-                <td>Metal</td>
-                <td>0,8 kg</td>
-                <td>Zona Norte</td>
-                <td><span class="badge badge-success">Concluído</span></td>
-              </tr>
-              <tr>
-                <td>10/05/2026</td>
-                <td>Eletrônico</td>
-                <td>0,5 kg</td>
-                <td>Zona Sul</td>
-                <td><span class="badge badge-warning">Pendente</span></td>
-              </tr>
-            </tbody>
+            <tbody id="historyBody"></tbody>
           </table>
         </div>
+        <p id="noResults" style="display:none; text-align:center; padding:32px; color:var(--text-muted);">Nenhum registro encontrado.</p>
       </div>
 
       <div>
         <h3 style="font-size:1.15rem; font-weight:600; margin-bottom:16px;">Calendário</h3>
-        <div class="calendar-placeholder">
-          <div class="month">Junho 2026</div>
-          <div class="calendar-grid">
-            <span class="day-name">Dom</span>
-            <span class="day-name">Seg</span>
-            <span class="day-name">Ter</span>
-            <span class="day-name">Qua</span>
-            <span class="day-name">Qui</span>
-            <span class="day-name">Sex</span>
-            <span class="day-name">Sáb</span>
-            <span class="day"></span>
-            <span class="day"></span>
-            <span class="day"></span>
-            <span class="day"></span>
-            <span class="day"></span>
-            <span class="day"></span>
-            <span class="day">1</span>
-            <span class="day has-event">2</span>
-            <span class="day">3</span>
-            <span class="day">4</span>
-            <span class="day">5</span>
-            <span class="day">6</span>
-            <span class="day">7</span>
-            <span class="day">8</span>
-            <span class="day">9</span>
-            <span class="day">10</span>
-            <span class="day has-event">11</span>
-            <span class="day">12</span>
-            <span class="day">13</span>
-            <span class="day">14</span>
-            <span class="day">15</span>
-            <span class="day">16</span>
-            <span class="day">17</span>
-            <span class="day has-event">18</span>
-            <span class="day">19</span>
-            <span class="day">20</span>
-            <span class="day">21</span>
-            <span class="day">22</span>
-            <span class="day">23</span>
-            <span class="day">24</span>
-            <span class="day">25</span>
-            <span class="day has-event">26</span>
-            <span class="day">27</span>
-            <span class="day">28</span>
-            <span class="day">29</span>
-            <span class="day today">30</span>
-          </div>
+        <div class="calendar-placeholder" id="calendarContainer">
+          <div class="month" id="calendarMonth"></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
         </div>
       </div>
     </div>
   </main>
 
-
+  <div id="editModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:2000; align-items:center; justify-content:center;">
+    <div style="background:var(--white); border-radius:var(--radius); padding:32px; max-width:480px; width:90%;">
+      <h3 style="margin-bottom:16px;" id="modalTitle">Editar Registro</h3>
+      <form id="editForm">
+        <div class="form-group">
+          <label>Data</label>
+          <input type="date" id="editData" class="form-input" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo</label>
+            <select id="editTipo" class="form-select">
+              <option value="papel">Papel</option><option value="plastico">Plástico</option>
+              <option value="vidro">Vidro</option><option value="metal">Metal</option>
+              <option value="organico">Orgânico</option><option value="eletronico">Eletrônico</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Quantidade (kg)</label>
+            <input type="number" id="editQtde" class="form-input" step="0.1" min="0" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Localidade</label>
+          <input type="text" id="editLocal" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="editStatus" class="form-select">
+            <option value="concluido">Concluído</option>
+            <option value="andamento">Em andamento</option>
+            <option value="pendente">Pendente</option>
+          </select>
+        </div>
+        <div style="display:flex; gap:12px; justify-content:flex-end; margin-top:24px;">
+          <button type="button" class="btn btn-outline" id="modalCancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <script>
-    document.getElementById('menuToggle')?.addEventListener('click', function() {
-      document.getElementById('mainNav')?.classList.toggle('open');
+    function montarSelectCustom(sel) {
+      if (sel.multiple || sel.dataset.custom) return;
+      sel.dataset.custom = "1";
+      var wrapper = document.createElement("div");
+      wrapper.className = "cst-wrapper";
+      sel.parentNode.insertBefore(wrapper, sel);
+      wrapper.appendChild(sel);
+      sel.classList.add("cst-hide");
+
+      var trigger = document.createElement("div");
+      trigger.className = "cst-trigger";
+      trigger.textContent = sel.options[sel.selectedIndex]?.textContent || sel.options[0]?.textContent || "";
+      wrapper.insertBefore(trigger, sel);
+
+      var dropdown = document.createElement("div");
+      dropdown.className = "cst-dropdown";
+      wrapper.appendChild(dropdown);
+
+      function montarOpcoes() {
+        dropdown.innerHTML = "";
+        Array.from(sel.options).forEach(function(opt) {
+          if (opt.disabled && opt.value === "") return;
+          var div = document.createElement("div");
+          div.className = "cst-option" + (opt.selected ? " sel" : "");
+          div.textContent = opt.textContent;
+          div.dataset.value = opt.value;
+          div.addEventListener("click", function(e) {
+            e.stopPropagation();
+            sel.value = this.dataset.value;
+            trigger.textContent = this.textContent;
+            dropdown.querySelectorAll(".cst-option").forEach(function(o) { o.classList.remove("sel"); });
+            this.classList.add("sel");
+            fecharDropdown();
+            sel.dispatchEvent(new Event("change", { bubbles: true }));
+          });
+          dropdown.appendChild(div);
+        });
+      }
+      montarOpcoes();
+
+      function abrirDropdown() {
+        document.querySelectorAll(".cst-dropdown.open").forEach(function(d) {
+          if (d !== dropdown) { d.classList.remove("open"); d.previousElementSibling?.classList.remove("open"); }
+        });
+        dropdown.classList.add("open");
+        trigger.classList.add("open");
+      }
+      function fecharDropdown() {
+        dropdown.classList.remove("open");
+        trigger.classList.remove("open");
+      }
+
+      trigger.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (dropdown.classList.contains("open")) { fecharDropdown(); }
+        else { abrirDropdown(); }
+      });
+
+      document.addEventListener("click", function(e) {
+        if (!wrapper.contains(e.target)) fecharDropdown();
+      });
+
+      sel.addEventListener("customUpdate", montarOpcoes);
+    }
+
+    const papel = sessionStorage.getItem("papel");
+    const usuario = sessionStorage.getItem("usuario");
+    if (!papel || !usuario) { window.location.href = "index.html"; }
+
+    document.querySelectorAll("#navPrincipal a[data-perfis]").forEach(function(link) {
+      const perfis = link.getAttribute("data-perfis").split(",");
+      if (!perfis.includes(papel)) { link.style.display = "none"; }
     });
 
-    document.getElementById('searchInput')?.addEventListener('input', function() {
-      alert('Buscando por: ' + this.value);
+    var rotuloPapel = { tutor:"Tutor", candidato:"Candidato", ong:"ONG", prefeitura:"Prefeitura" };
+    document.getElementById('usuarioNav').textContent = rotuloPapel[papel] || papel;
+
+    document.getElementById('btnSair')?.addEventListener('click', function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
     });
 
-    document.getElementById('filterStatus')?.addEventListener('change', function() {
-      alert('Filtrando por status: ' + this.value);
+    document.getElementById('alternarMenu')?.addEventListener('click', function() {
+      document.getElementById('navPrincipal')?.classList.toggle('open');
     });
 
-    document.getElementById('filterTipo')?.addEventListener('change', function() {
-      alert('Filtrando por tipo: ' + this.value);
+    const TIPOS = { papel: "Papel", plastico: "Plástico", vidro: "Vidro", metal: "Metal", organico: "Orgânico", eletronico: "Eletrônico" };
+    const STATUS = { concluido: "Concluído", andamento: "Em andamento", pendente: "Pendente" };
+    const STATUS_CLASS = { concluido: "badge-success", andamento: "badge-warning", pendente: "badge-danger" };
+
+    var editandoId = null;
+
+    function getRegistros() {
+      const chave = "historico_" + usuario;
+      return JSON.parse(localStorage.getItem(chave) || "[]");
+    }
+
+    function salvarRegistros(lista) {
+      localStorage.setItem("historico_" + usuario, JSON.stringify(lista));
+    }
+
+    function calcularStats(lista) {
+      var totalKg = 0, concluidos = 0, pendencias = 0, tipoCont = {};
+      lista.forEach(function(r) {
+        totalKg += Number(r.qtde) || 0;
+        if (r.status === "concluido") concluidos++;
+        else if (r.status === "pendente") pendencias++;
+        tipoCont[r.tipo] = (tipoCont[r.tipo] || 0) + 1;
+      });
+      var tipoFreq = "-";
+      var max = 0;
+      for (var t in tipoCont) {
+        if (tipoCont[t] > max) { max = tipoCont[t]; tipoFreq = TIPOS[t] || t; }
+      }
+      document.getElementById("statTotal").textContent = totalKg.toFixed(1).replace(".", ",");
+      document.getElementById("statColetas").textContent = lista.length;
+      document.getElementById("statPendencias").textContent = pendencias;
+      document.getElementById("statTipoFreq").textContent = tipoFreq;
+    }
+
+    function renderCalendario(registros) {
+      var data = new Date();
+      var mes = data.getMonth();
+      var ano = data.getFullYear();
+      var meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+      document.getElementById("calendarMonth").textContent = meses[mes] + " " + ano;
+
+      var diasEvento = {};
+      registros.forEach(function(r) {
+        var d = r.data;
+        var partes = d.split("-");
+        if (partes.length === 3) {
+          var chave = String(Number(partes[2]));
+          diasEvento[chave] = true;
+        }
+      });
+
+      var primeiroDia = new Date(ano, mes, 1).getDay();
+      var ultimoDia = new Date(ano, mes + 1, 0).getDate();
+      var hoje = data.getDate();
+      var html = '<span class="day-name">Dom</span><span class="day-name">Seg</span><span class="day-name">Ter</span><span class="day-name">Qua</span><span class="day-name">Qui</span><span class="day-name">Sex</span><span class="day-name">Sáb</span>';
+      for (var i = 0; i < primeiroDia; i++) html += '<span class="day"></span>';
+      for (var d = 1; d <= ultimoDia; d++) {
+        var cls = "day";
+        if (diasEvento[d]) cls += " has-event";
+        if (d === hoje) cls += " today";
+        html += '<span class="' + cls + '">' + d + '</span>';
+      }
+      document.getElementById("calendarGrid").innerHTML = html;
+    }
+
+    function renderTabela() {
+      var lista = getRegistros();
+      var busca = document.getElementById("searchInput").value.toLowerCase();
+      var filtroStatus = document.getElementById("filterStatus").value;
+      var filtroTipo = document.getElementById("filterTipo").value;
+
+      var filtrados = lista.filter(function(r) {
+        var dataStr = r.data.split("-").reverse().join("/");
+        var texto = (r.tipo + " " + r.local + " " + (STATUS[r.status] || "") + " " + dataStr).toLowerCase();
+        if (busca && texto.indexOf(busca) === -1) return false;
+        if (filtroStatus && r.status !== filtroStatus) return false;
+        if (filtroTipo && r.tipo !== filtroTipo) return false;
+        return true;
+      });
+
+      calcularStats(lista);
+      renderCalendario(lista);
+
+      var tbody = document.getElementById("historyBody");
+      var noResults = document.getElementById("noResults");
+
+      if (filtrados.length === 0) {
+        tbody.innerHTML = "";
+        noResults.style.display = "block";
+        return;
+      }
+      noResults.style.display = "none";
+
+      var podeEditar = (papel === "ong" || papel === "prefeitura");
+      var thActions = document.getElementById("thActions");
+      if (thActions) thActions.style.display = podeEditar ? "" : "none";
+
+      tbody.innerHTML = filtrados.map(function(r) {
+        var dataStr = r.data.split("-").reverse().join("/");
+        var statusLabel = STATUS[r.status] || r.status;
+        var statusClass = STATUS_CLASS[r.status] || "badge-info";
+        var qtdeStr = String(r.qtde).replace(".", ",") + " kg";
+        var acoes = "";
+        if (podeEditar) {
+          acoes = '<td style="white-space:nowrap;">' +
+            '<button class="btn btn-sm btn-secondary btnEdit" data-id="' + r.id + '" style="margin-right:4px;">Editar</button>' +
+            '<button class="btn btn-sm btn-danger btnDelete" data-id="' + r.id + '" style="padding:6px 12px;">Excluir</button></td>';
+        }
+        return '<tr><td data-label="Data">' + dataStr + '</td><td data-label="Tipo">' + (TIPOS[r.tipo] || r.tipo) + '</td><td data-label="Quantidade">' + qtdeStr + '</td><td data-label="Localidade">' + r.local + '</td><td data-label="Status"><span class="badge ' + statusClass + '">' + statusLabel + '</span></td>' + acoes.replace('<td', '<td data-label="Ações"') + '</tr>';
+      }).join("");
+
+      document.querySelectorAll(".btnEdit").forEach(function(btn) {
+        btn.addEventListener("click", function() { abrirModal(Number(this.dataset.id)); });
+      });
+      document.querySelectorAll(".btnDelete").forEach(function(btn) {
+        btn.addEventListener("click", function() { excluirRegistro(Number(this.dataset.id)); });
+      });
+    }
+
+    function abrirModal(id) {
+      editandoId = id;
+      var lista = getRegistros();
+      var r = lista.find(function(x) { return x.id === id; });
+      if (!r) return;
+      document.getElementById("modalTitle").textContent = "Editar Registro";
+      document.getElementById("editData").value = r.data;
+      document.getElementById("editTipo").value = r.tipo;
+      document.getElementById("editQtde").value = r.qtde;
+      document.getElementById("editLocal").value = r.local;
+      document.getElementById("editStatus").value = r.status;
+      document.getElementById("editModal").style.display = "flex";
+    }
+
+    function fecharModal() {
+      document.getElementById("editModal").style.display = "none";
+      editandoId = null;
+    }
+
+    function excluirRegistro(id) {
+      if (!confirm("Excluir este registro?")) return;
+      var lista = getRegistros();
+      lista = lista.filter(function(x) { return x.id !== id; });
+      salvarRegistros(lista);
+      renderTabela();
+    }
+
+    document.getElementById("editForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      var lista = getRegistros();
+      var idx = lista.findIndex(function(x) { return x.id === editandoId; });
+      if (idx === -1) return;
+      lista[idx] = {
+        id: editandoId,
+        data: document.getElementById("editData").value,
+        tipo: document.getElementById("editTipo").value,
+        qtde: Number(document.getElementById("editQtde").value),
+        local: document.getElementById("editLocal").value,
+        status: document.getElementById("editStatus").value,
+      };
+      salvarRegistros(lista);
+      fecharModal();
+      renderTabela();
     });
+
+    document.getElementById("modalCancel").addEventListener("click", fecharModal);
+    document.getElementById("editModal").addEventListener("click", function(e) {
+      if (e.target === this) fecharModal();
+    });
+
+    document.getElementById("searchInput").addEventListener("input", renderTabela);
+    document.getElementById("filterStatus").addEventListener("change", renderTabela);
+    document.getElementById("filterTipo").addEventListener("change", renderTabela);
+
+    document.getElementById("btnSeedData")?.addEventListener("click", function() {
+      var exemplos = [
+        { id: 1, data: "2026-06-01", tipo: "papel", qtde: 2.5, local: "Centro", status: "concluido" },
+        { id: 2, data: "2026-05-28", tipo: "plastico", qtde: 1.2, local: "Zona Sul", status: "andamento" },
+        { id: 3, data: "2026-05-25", tipo: "vidro", qtde: 3.0, local: "Centro", status: "concluido" },
+        { id: 4, data: "2026-05-20", tipo: "organico", qtde: 5.0, local: "Jardim América", status: "andamento" },
+        { id: 5, data: "2026-05-15", tipo: "metal", qtde: 0.8, local: "Zona Norte", status: "concluido" },
+        { id: 6, data: "2026-05-10", tipo: "eletronico", qtde: 0.5, local: "Zona Sul", status: "pendente" },
+      ];
+      salvarRegistros(exemplos);
+      renderTabela();
+    });
+
+    if (papel === "ong" || papel === "prefeitura") {
+      document.getElementById("histAdminBar").style.display = "block";
+    }
+
+    montarSelectCustom(document.getElementById("filterStatus"));
+    montarSelectCustom(document.getElementById("filterTipo"));
+    var editTipo = document.getElementById("editTipo");
+    if (editTipo) montarSelectCustom(editTipo);
+    var editStatus = document.getElementById("editStatus");
+    if (editStatus) montarSelectCustom(editStatus);
+
+    renderTabela();
   </script>
 </body>
 </html>
+
+
+

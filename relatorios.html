@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE-CICLE - Relatórios</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .chart-bar { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+    .chart-bar .label { width:100px; font-size:0.85rem; font-weight:500; color:var(--text-light); flex-shrink:0; }
+    .chart-bar .track { flex:1; height:24px; background:var(--gray-bg); border-radius:12px; overflow:hidden; }
+    .chart-bar .fill { height:100%; border-radius:12px; transition:width 0.6s ease; min-width:4px; }
+    .chart-bar .value { width:48px; font-size:0.82rem; font-weight:600; color:var(--text); text-align:right; flex-shrink:0; }
+    .impact-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .impact-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-sm); padding:20px; text-align:center; }
+    .impact-card .num { font-size:1.8rem; font-weight:800; color:var(--primary); }
+    .impact-card .label { font-size:0.8rem; color:var(--text-muted); margin-top:4px; }
+    .timeline { display:flex; flex-direction:column; gap:12px; }
+    .timeline-item { display:flex; gap:14px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--border); }
+    .timeline-item:last-child { border-bottom:none; }
+    .timeline-dot { width:12px; height:12px; border-radius:50%; background:var(--primary-light); flex-shrink:0; margin-top:4px; }
+    .timeline-content { flex:1; }
+    .timeline-content .title { font-size:0.9rem; font-weight:600; color:var(--text); }
+    .timeline-content .desc { font-size:0.82rem; color:var(--text-muted); }
+    .timeline-content .date { font-size:0.75rem; color:var(--text-light); margin-top:2px; }
+    .espaco-entre { margin-top:32px; }
+    @media (max-width:600px) { .impact-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:480px) { .impact-grid { grid-template-columns:1fr; } .chart-bar .label { width:70px; font-size:0.78rem; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="pagina-principal.html" class="logo">
+        <img src="images/navbar.png" alt="RE-CICLE">
+      </a>
+      <button class="menu-toggle" id="alternarMenu" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="navPrincipal">
+        <a href="pagina-principal.html" data-perfis="tutor,candidato,ong,prefeitura">Página Inicial</a>
+        <a href="registro-de-residuos.html" data-perfis="candidato,ong">Mapa/Cadastro de Resíduos</a>
+        <a href="historico-e-acompanhamento.html" data-perfis="tutor,candidato,ong,prefeitura">Histórico e Acompanhamento</a>
+        <a href="dicas-sustentaveis.html" data-perfis="tutor,candidato,ong,prefeitura">Dicas Sustentáveis</a>
+        <a href="relatorios.html" class="active" data-perfis="tutor,candidato,ong,prefeitura">Relatórios</a>
+        <a href="gerenciar-usuario.html" data-perfis="tutor,candidato,ong,prefeitura">Gerenciar Usuário</a>
+        <a href="suporte.html" data-perfis="tutor,candidato,ong,prefeitura">Suporte</a>
+        <span class="nav-user" id="usuarioNav"></span>
+        <button class="btn-logout" id="btnSair" title="Sair">Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="cabecalho-pagina flex-header">
+      <div>
+        <h1>Relatórios</h1>
+        <p>Acompanhe estatísticas e o impacto das suas ações ambientais.</p>
+      </div>
+
+    </div>
+
+    <div class="impact-grid" id="impactGrid"></div>
+
+    <div class="espaco-entre">
+      <h2 style="font-size:1.2rem; font-weight:700; margin-bottom:20px;">Resíduos por Tipo</h2>
+      <div class="card" style="padding:24px;">
+        <div id="wasteChart"></div>
+        <p id="noChartData" style="display:none; text-align:center; padding:24px; color:var(--text-muted);">Nenhum registro encontrado.</p>
+      </div>
+    </div>
+
+    <div class="espaco-entre">
+      <h2 style="font-size:1.2rem; font-weight:700; margin-bottom:20px;">Atividade Recente</h2>
+      <div class="card" style="padding:24px;">
+        <div id="timelineList"></div>
+        <p id="noTimeline" style="display:none; text-align:center; padding:24px; color:var(--text-muted);">Nenhuma atividade recente.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    var rotuloPapel = { tutor:"Tutor", candidato:"Candidato", ong:"ONG", prefeitura:"Prefeitura" };
+
+    const papel = sessionStorage.getItem("papel");
+    const usuario = sessionStorage.getItem("usuario");
+    if (!papel || !usuario) { window.location.href = "index.html"; }
+
+    document.querySelectorAll("#navPrincipal a[data-perfis]").forEach(function(link) {
+      const perfis = link.getAttribute("data-perfis").split(",");
+      if (!perfis.includes(papel)) { link.style.display = "none"; }
+    });
+
+    document.getElementById('usuarioNav').textContent = rotuloPapel[papel] || papel;
+
+    document.getElementById('btnSair')?.addEventListener('click', function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    document.getElementById('alternarMenu')?.addEventListener('click', function() {
+      document.getElementById('navPrincipal')?.classList.toggle('open');
+    });
+
+    var CORES_TIPO = {
+      papel: "#4CAF50", plastico: "#2196F3", vidro: "#9C27B0",
+      metal: "#FF9800", organico: "#795548", eletronico: "#F44336",
+      perigoso: "#E91E63", outro: "#607D8B"
+    };
+    var ROTULOS_TIPO = {
+      papel:"Papel", plastico:"Plástico", vidro:"Vidro",
+      metal:"Metal", organico:"Orgânico", eletronico:"Eletrônico",
+      perigoso:"Perigoso", outro:"Outro"
+    };
+
+    function getHistorico() {
+      var chave = "historico_" + usuario;
+      return JSON.parse(localStorage.getItem(chave) || "[]");
+    }
+
+    function getPontos() {
+      return JSON.parse(localStorage.getItem("pontosColeta") || "[]");
+    }
+
+    function getDicas() {
+      return JSON.parse(localStorage.getItem("dicas") || "[]");
+    }
+
+    function calcularImpacto() {
+      var historico = getHistorico();
+      var pontos = getPontos();
+      var dicas = getDicas();
+      var totalKg = 0, totalRegistros = historico.length;
+      var porTipo = {};
+      var concluidos = 0;
+
+      historico.forEach(function(r) {
+        var kg = parseFloat(r.quantidade) || 0;
+        totalKg += kg;
+        var tipo = r.tipo || "outro";
+        porTipo[tipo] = (porTipo[tipo] || 0) + kg;
+        if (r.status === "concluido") concluidos++;
+      });
+
+      var co2Economia = totalKg * 0.6;
+      var arvores = Math.round(totalKg / 15);
+
+      return { totalKg, totalRegistros, concluidos, porTipo, co2Economia, arvores, pontos, dicas };
+    }
+
+    function renderImpacto() {
+      var data = calcularImpacto();
+      var grid = document.getElementById("impactGrid");
+
+      var cards = [];
+
+      if (papel === "candidato" || papel === "ong") {
+        cards.push(
+          '<div class="impact-card"><div class="num">' + data.totalKg.toFixed(1) + '</div><div class="label">kg coletados</div></div>',
+          '<div class="impact-card"><div class="num">' + data.totalRegistros + '</div><div class="label">registros</div></div>',
+          '<div class="impact-card"><div class="num">' + data.concluidos + '</div><div class="label">concluídos</div></div>'
+        );
+      } else if (papel === "tutor") {
+        cards.push(
+          '<div class="impact-card"><div class="num">' + data.dicas.length + '</div><div class="label">dicas criadas</div></div>',
+          '<div class="impact-card"><div class="num">' + data.totalRegistros + '</div><div class="label">registros na cidade</div></div>',
+          '<div class="impact-card"><div class="num">' + data.totalKg.toFixed(1) + '</div><div class="label">kg registrados</div></div>'
+        );
+      } else if (papel === "prefeitura") {
+        cards.push(
+          '<div class="impact-card"><div class="num">' + data.totalKg.toFixed(1) + '</div><div class="label">kg totais</div></div>',
+          '<div class="impact-card"><div class="num">' + data.totalRegistros + '</div><div class="label">registros</div></div>',
+          '<div class="impact-card"><div class="num">' + data.pontos.length + '</div><div class="label">pontos de coleta</div></div>'
+        );
+      }
+
+      cards.push(
+        '<div class="impact-card"><div class="num">' + data.co2Economia.toFixed(1) + '</div><div class="label">kg CO₂ evitados</div></div>',
+        '<div class="impact-card"><div class="num">' + data.arvores + '</div><div class="label">árvores equivalentes</div></div>'
+      );
+
+      grid.innerHTML = cards.join("");
+    }
+
+    function renderChart() {
+      var data = calcularImpacto();
+      var container = document.getElementById("wasteChart");
+      var noData = document.getElementById("noChartData");
+      var tipos = Object.keys(data.porTipo);
+
+      if (tipos.length === 0) {
+        container.innerHTML = "";
+        noData.style.display = "block";
+        return;
+      }
+      noData.style.display = "none";
+
+      var maxValor = Math.max.apply(null, tipos.map(function(t) { return data.porTipo[t]; }));
+
+      container.innerHTML = tipos.map(function(tipo) {
+        var valor = data.porTipo[tipo];
+        var pct = maxValor > 0 ? (valor / maxValor * 100) : 0;
+        var cor = CORES_TIPO[tipo] || "#4CAF50";
+        return (
+          '<div class="chart-bar">' +
+            '<span class="label">' + (ROTULOS_TIPO[tipo] || tipo) + '</span>' +
+            '<div class="track"><div class="fill" style="width:' + pct + '%;background:' + cor + ';"></div></div>' +
+            '<span class="value">' + valor.toFixed(1) + 'kg</span>' +
+          '</div>'
+        );
+      }).join("");
+    }
+
+    function renderTimeline() {
+      var historico = getHistorico();
+      var container = document.getElementById("timelineList");
+      var noData = document.getElementById("noTimeline");
+
+      if (historico.length === 0) {
+        container.innerHTML = "";
+        noData.style.display = "block";
+        return;
+      }
+      noData.style.display = "none";
+
+      var recentes = historico.slice().sort(function(a, b) {
+        return new Date(b.data) - new Date(a.data);
+      }).slice(0, 10);
+
+      container.innerHTML = recentes.map(function(r) {
+        var statusCor = r.status === "concluido" ? "var(--primary)" : r.status === "andamento" ? "#FF9800" : "#F44336";
+        var statusLabel = r.status === "concluido" ? "Concluído" : r.status === "andamento" ? "Em andamento" : "Pendente";
+        var dataStr = r.data ? new Date(r.data).toLocaleDateString("pt-BR") : "";
+        return (
+          '<div class="timeline-item">' +
+            '<div class="timeline-dot" style="background:' + statusCor + ';"></div>' +
+            '<div class="timeline-content">' +
+              '<div class="title">' + (ROTULOS_TIPO[r.tipo] || r.tipo) + ' — ' + r.quantidade + 'kg</div>' +
+              '<div class="desc">' + (r.localidade || "Local não informado") + ' · ' + statusLabel + '</div>' +
+              '<div class="date">' + dataStr + '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join("");
+    }
+
+
+
+    renderImpacto();
+    renderChart();
+    renderTimeline();
+  </script>
+</body>
+</html>
+
+
+

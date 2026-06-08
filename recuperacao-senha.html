@@ -16,6 +16,10 @@
       <p class="subtitle">Defina uma nova senha para sua conta</p>
 
       <form id="recoveryForm">
+      <div class="form-group">
+        <label for="email">Nome de usuário</label>
+        <input type="text" id="usuarioRec" class="form-input" placeholder="Seu nome de usuário" required autocomplete="username">
+      </div>
         <div class="form-group">
           <label for="novaSenha">Nova senha</label>
           <input type="password" id="novaSenha" class="form-input" placeholder="Digite a nova senha" required>
@@ -33,18 +37,29 @@
     </div>
   </div>
 
+  <script src="login.js"></script>
   <script>
     document.getElementById('recoveryForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
-      const nova = document.getElementById('novaSenha')?.value;
-      const confirmar = document.getElementById('confirmarSenha')?.value;
+
+      const usuario = document.getElementById('usuarioRec').value.trim();
+      const nova = document.getElementById('novaSenha').value;
+      const confirmar = document.getElementById('confirmarSenha').value;
+
       if (nova !== confirmar) {
         alert('As senhas não conferem!');
         return;
       }
+
+      if (!redefinirSenha(usuario, nova)) {
+        alert('Usuário não encontrado');
+        return;
+      }
+
       alert('Senha redefinida com sucesso!');
       window.location.href = 'index.html';
     });
   </script>
 </body>
 </html>
+

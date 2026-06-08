@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE-CICLE - Gerenciar Usuário</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="pagina-principal.html" class="logo">
+        <img src="images/navbar.png" alt="RE-CICLE">
+      </a>
+      <button class="menu-toggle" id="alternarMenu" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="navPrincipal">
+        <a href="pagina-principal.html" data-perfis="tutor,candidato,ong,prefeitura">Página Inicial</a>
+        <a href="registro-de-residuos.html" data-perfis="candidato,ong">Mapa/Cadastro de Resíduos</a>
+        <a href="historico-e-acompanhamento.html" data-perfis="tutor,candidato,ong,prefeitura">Histórico e Acompanhamento</a>
+        <a href="dicas-sustentaveis.html" data-perfis="tutor,candidato,ong,prefeitura">Dicas Sustentáveis</a>
+        <a href="relatorios.html" data-perfis="tutor,candidato,ong,prefeitura">Relatórios</a>
+        <a href="gerenciar-usuario.html" class="active" data-perfis="tutor,candidato,ong,prefeitura">Gerenciar Usuário</a>
+        <a href="suporte.html" data-perfis="tutor,candidato,ong,prefeitura">Suporte</a>
+        <span class="nav-user" id="usuarioNav"></span>
+        <button class="btn-logout" id="btnSair" title="Sair">Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="cabecalho-pagina">
+      <h1>Gerenciar Usuário</h1>
+      <p>Visualize e edite suas informações de perfil.</p>
+    </div>
+
+    <div style="max-width:600px; margin:0 auto;">
+      <div class="card" style="padding:24px;">
+        <h2 style="margin-bottom:16px;">Informações da Conta</h2>
+
+        <div class="form-group">
+          <label>Nome de usuário</label>
+          <input type="text" id="infoUsuario" class="form-input" readonly>
+        </div>
+        <div class="form-group">
+          <label>Tipo de perfil</label>
+          <input type="text" id="infoPapel" class="form-input" readonly>
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="text" id="infoEmail" class="form-input" placeholder="(não cadastrado)" readonly>
+        </div>
+      </div>
+
+      <div class="card" style="padding:24px; margin-top:24px;">
+        <h2 style="margin-bottom:16px;">Alterar Senha</h2>
+        <form id="changePwdForm">
+          <div class="form-group">
+            <label for="pwdNova">Nova senha</label>
+            <input type="password" id="pwdNova" class="form-input" placeholder="Nova senha" required>
+          </div>
+          <div class="form-group">
+            <label for="pwdConfirmar">Confirmar nova senha</label>
+            <input type="password" id="pwdConfirmar" class="form-input" placeholder="Confirme a senha" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Salvar Senha</button>
+        </form>
+      </div>
+
+      <div class="card" style="padding:24px; margin-top:24px;">
+        <h2 style="margin-bottom:16px;">Alterar Perfil</h2>
+        <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:16px;">Escolha um novo tipo de perfil:</p>
+        <form id="changePerfilForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="perfil-option" for="perfilTutor">
+                <input type="radio" name="novoPerfil" id="perfilTutor" value="tutor">
+                <div>
+                  <strong>Tutor</strong>
+                  <span>Professor / educador ambiental</span>
+                </div>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="perfil-option" for="perfilCandidato">
+                <input type="radio" name="novoPerfil" id="perfilCandidato" value="candidato">
+                <div>
+                  <strong>Candidato</strong>
+                  <span>Cidadão / voluntário</span>
+                </div>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="perfil-option" for="perfilOng">
+                <input type="radio" name="novoPerfil" id="perfilOng" value="ong">
+                <div>
+                  <strong>ONG</strong>
+                  <span>Organização não governamental</span>
+                </div>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="perfil-option" for="perfilPrefeitura">
+                <input type="radio" name="novoPerfil" id="perfilPrefeitura" value="prefeitura">
+                <div>
+                  <strong>Prefeitura</strong>
+                  <span>Órgão público municipal</span>
+                </div>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Alterar Perfil</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    var rotuloPapel = { tutor:"Tutor", candidato:"Candidato", ong:"ONG", prefeitura:"Prefeitura" };
+    var usuariosFixos = {
+      tutor: { senha: "123456", papel: "tutor", nome: "Tutor" },
+      candidato: { senha: "cand!098", papel: "candidato", nome: "Candidato" },
+      Ong: { senha: "ong$-135", papel: "ong", nome: "ONG" },
+      prefeitura: { senha: "pref@456", papel: "prefeitura", nome: "Prefeitura" },
+    };
+
+    const papel = sessionStorage.getItem("papel");
+    const usuario = sessionStorage.getItem("usuario");
+    if (!papel || !usuario) { window.location.href = "index.html"; }
+
+    document.querySelectorAll("#navPrincipal a[data-perfis]").forEach(function(link) {
+      const perfis = link.getAttribute("data-perfis").split(",");
+      if (!perfis.includes(papel)) { link.style.display = "none"; }
+    });
+
+    document.getElementById('usuarioNav').textContent = rotuloPapel[papel] || papel;
+
+    document.getElementById('btnSair')?.addEventListener('click', function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    document.getElementById('alternarMenu')?.addEventListener('click', function() {
+      document.getElementById('navPrincipal')?.classList.toggle('open');
+    });
+
+    document.getElementById('infoUsuario').value = usuario;
+
+    document.getElementById('infoPapel').value = rotuloPapel[papel] || papel;
+
+    var dados = JSON.parse(localStorage.getItem("usuariosCadastrados") || "{}");
+    var userData = dados[usuario];
+    document.getElementById('infoEmail').value = userData && userData.email ? userData.email : "(não cadastrado)";
+
+    document.getElementById('changePwdForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nova = document.getElementById('pwdNova').value;
+      var conf = document.getElementById('pwdConfirmar').value;
+      if (nova !== conf) { alert('As senhas não coincidem'); return; }
+      if (nova.length < 4) { alert('A senha deve ter pelo menos 4 caracteres'); return; }
+
+      if (usuariosFixos[usuario]) {
+        usuariosFixos[usuario].senha = nova;
+        alert('Senha alterada com sucesso!');
+        this.reset();
+        return;
+      }
+
+      if (!userData) { alert('Usuário não encontrado'); return; }
+      userData.senha = nova;
+      dados[usuario] = userData;
+      localStorage.setItem("usuariosCadastrados", JSON.stringify(dados));
+      alert('Senha alterada com sucesso!');
+      this.reset();
+    });
+
+    document.querySelectorAll('input[name="novoPerfil"]').forEach(function(r) {
+      if (r.value === papel) { r.checked = true; }
+    });
+
+    document.getElementById('changePerfilForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var novo = document.querySelector('input[name="novoPerfil"]:checked');
+      if (!novo) { alert('Selecione um perfil'); return; }
+      var novoPapel = novo.value;
+      if (novoPapel === papel) { alert('Você já está neste perfil'); return; }
+
+      if (usuariosFixos[usuario]) {
+        alert('Usuários fixos não podem alterar o perfil.');
+        return;
+      }
+
+      if (!userData) { alert('Usuário não encontrado'); return; }
+      userData.papel = novoPapel;
+      dados[usuario] = userData;
+      localStorage.setItem("usuariosCadastrados", JSON.stringify(dados));
+      sessionStorage.setItem("papel", novoPapel);
+      alert('Perfil alterado! Faça login novamente para aplicar as alterações.');
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
+
+
+

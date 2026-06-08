@@ -7,62 +7,82 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="auth-page">
-    <div class="auth-card wide">
-      <a href="pagina-principal.html" class="logo">
+  <main class="auth-page">
+    <article class="auth-card wide">
+      <header class="logo">
         <img src="images/navbar.png" alt="RE-CICLE">
-      </a>
+      </header>
+
       <h2>Criar Conta</h2>
-      <p class="subtitle">Cadastre sua organização para começar</p>
+      <p class="subtitle">Cadastre-se na plataforma RE-CICLE</p>
 
       <form id="registerForm">
-        <div class="form-section-title">Dados da Organização</div>
+        <div class="titulo-secao-form">Dados do Usuário</div>
 
         <div class="form-group">
-          <label for="nomeOrg">Nome</label>
-          <input type="text" id="nomeOrg" class="form-input" placeholder="Nome da organização" required>
+          <label for="nomeRep">Nome completo</label>
+          <input type="text" id="nomeRep" class="form-input" placeholder="Seu nome" required>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="razaoSocial">Razão Social</label>
-            <input type="text" id="razaoSocial" class="form-input" placeholder="Razão social" required>
-          </div>
-          <div class="form-group">
-            <label for="documento">CNPJ / CPF</label>
-            <input type="text" id="documento" class="form-input" placeholder="00.000.000/0001-00" required>
-          </div>
-        </div>
-
-        <div class="form-section-title">Dados do Representante</div>
-
         <div class="form-group">
-          <label for="nomeRep">Nome</label>
-          <input type="text" id="nomeRep" class="form-input" placeholder="Nome completo" required>
+          <label for="usuarioRep">Nome de usuário</label>
+          <input type="text" id="usuarioRep" class="form-input" placeholder="Ex: joaosilva" required autocomplete="username">
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="emailRep">E-mail</label>
-            <input type="email" id="emailRep" class="form-input" placeholder="email@provedor.com" required>
-          </div>
-          <div class="form-group">
-            <label for="cargo">Cargo</label>
-            <input type="text" id="cargo" class="form-input" placeholder="Seu cargo" required>
-          </div>
+        <div class="form-group">
+          <label for="emailRep">E-mail</label>
+          <input type="email" id="emailRep" class="form-input" placeholder="seu@email.com">
         </div>
 
-        <div class="form-section-title">Tipo de Cadastro</div>
+        <div class="titulo-secao-form">Segurança</div>
 
         <div class="form-row">
           <div class="form-group">
-            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:16px; border:2px solid var(--border); border-radius:var(--radius-sm); transition:var(--transition);" for="tipoContratante">
-              <input type="radio" name="tipo" id="tipoContratante" value="contratante" checked>
-              <span>Empresa Contratante</span>
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" class="form-input" placeholder="Crie uma senha" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmarSenha">Confirmar Senha</label>
+            <input type="password" id="confirmarSenha" class="form-input" placeholder="Confirme a senha" required>
+          </div>
+        </div>
+
+        <div class="titulo-secao-form">Perfil</div>
+        <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:16px;">Escolha o perfil que melhor descreve sua atuação:</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="perfil-option" for="perfilTutor">
+              <input type="radio" name="perfil" id="perfilTutor" value="tutor" checked>
+              <div>
+                <strong>Tutor</strong>
+                <span>Professor / educador ambiental</span>
+              </div>
             </label>
           </div>
           <div class="form-group">
-            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:16px; border:2px solid var(--border); border-radius:var(--radius-sm); transition:var(--transition);" for="tipoColetora">
-              <input type="radio" name="tipo" id="tipoColetora" value="coletora">
-              <span>Empresa Coletora</span>
+            <label class="perfil-option" for="perfilCandidato">
+              <input type="radio" name="perfil" id="perfilCandidato" value="candidato">
+              <div>
+                <strong>Candidato</strong>
+                <span>Cidadão / voluntário</span>
+              </div>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="perfil-option" for="perfilOng">
+              <input type="radio" name="perfil" id="perfilOng" value="ong">
+              <div>
+                <strong>ONG</strong>
+                <span>Organização não governamental</span>
+              </div>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="perfil-option" for="perfilPrefeitura">
+              <input type="radio" name="perfil" id="perfilPrefeitura" value="prefeitura">
+              <div>
+                <strong>Prefeitura</strong>
+                <span>Órgão público municipal</span>
+              </div>
             </label>
           </div>
         </div>
@@ -70,18 +90,67 @@
         <button type="submit" class="btn btn-primary btn-block btn-lg mt-2">Criar Conta</button>
       </form>
 
-      <p class="subtitle mt-3">
-        Já tem conta? <a href="index.html">Faça login</a>
-      </p>
-    </div>
-  </div>
+      <footer class="auth-footer mt-3">
+        <p class="subtitle">
+          Já tem conta? <a href="index.html">Faça login</a>
+        </p>
+      </footer>
+    </article>
+  </main>
 
   <script>
+    var usuariosFixos = {
+      tutor:      { senha: "123456",   papel: "tutor",      nome: "Tutor" },
+      candidato:  { senha: "cand!098", papel: "candidato",  nome: "Candidato" },
+      Ong:        { senha: "ong$-135", papel: "ong",        nome: "ONG" },
+      prefeitura: { senha: "pref@456", papel: "prefeitura", nome: "Prefeitura" },
+    };
+
     document.getElementById('registerForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('Conta criada com sucesso!');
+
+      const nome = document.getElementById('nomeRep').value.trim();
+      const usuario = document.getElementById('usuarioRep').value.trim().toLowerCase();
+      const email = document.getElementById('emailRep').value.trim();
+      const senha = document.getElementById('senha').value;
+      const confirmarSenha = document.getElementById('confirmarSenha').value;
+      const perfil = document.querySelector('input[name="perfil"]:checked').value;
+
+      if (!nome) {
+        alert('Informe seu nome');
+        return;
+      }
+
+      if (!usuario) {
+        alert('Escolha um nome de usuário');
+        return;
+      }
+
+      if (senha !== confirmarSenha) {
+        alert('As senhas não coincidem');
+        return;
+      }
+
+      if (usuariosFixos[usuario]) {
+        alert('Este nome de usuário já existe como conta fixa');
+        return;
+      }
+
+      const dados = JSON.parse(localStorage.getItem("usuariosCadastrados") || "{}");
+
+      if (dados[usuario]) {
+        alert('Nome de usuário já cadastrado');
+        return;
+      }
+
+      dados[usuario] = { nome, email, senha, papel: perfil };
+      localStorage.setItem("usuariosCadastrados", JSON.stringify(dados));
+
+      alert('Conta criada com sucesso! Faça login para continuar.');
       window.location.href = 'index.html';
     });
   </script>
 </body>
 </html>
+
+

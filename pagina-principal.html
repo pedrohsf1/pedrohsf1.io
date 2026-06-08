@@ -12,69 +12,284 @@
       <a href="pagina-principal.html" class="logo">
 <img src="images/navbar.png" alt="RE-CICLE">
         </a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
-      <nav class="nav" id="mainNav">
-        <a href="pagina-principal.html" class="active">Página Inicial</a>
-        <a href="registro-de-residuos.html">Mapa/Cadastro de Resíduos</a>
-        <a href="historico-e-acompanhamento.html">Histórico e Acompanhamento</a>
-        <a href="dicas-sustentaveis.html">Dicas Sustentáveis</a>
-        <a href="suporte.html">Suporte</a>
+      <button class="menu-toggle" id="alternarMenu" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="navPrincipal">
+        <a href="pagina-principal.html" class="active" data-perfis="tutor,candidato,ong,prefeitura">Página Inicial</a>
+        <a href="registro-de-residuos.html" data-perfis="candidato,ong">Mapa/Cadastro de Resíduos</a>
+        <a href="historico-e-acompanhamento.html" data-perfis="tutor,candidato,ong,prefeitura">Histórico e Acompanhamento</a>
+        <a href="dicas-sustentaveis.html" data-perfis="tutor,candidato,ong,prefeitura">Dicas Sustentáveis</a>
+        <a href="relatorios.html" data-perfis="tutor,candidato,ong,prefeitura">Relatórios</a>
+        <a href="gerenciar-usuario.html" data-perfis="tutor,candidato,ong,prefeitura">Gerenciar Usuário</a>
+        <a href="suporte.html" data-perfis="tutor,candidato,ong,prefeitura">Suporte</a>
+        <span class="nav-user" id="usuarioNav"></span>
+        <button class="btn-logout" id="btnSair" title="Sair">Sair</button>
       </nav>
     </div>
   </header>
 
-  <section class="home-split">
-    <div class="home-left">
-      <img src="images/logo.png" alt="RE-CICLE" class="home-logo">
-      <img src="images/nome.png" alt="RE-CICLE" class="home-nome">
-      <p class="home-tagline">Registre, acompanhe e reduza seus resíduos com nossa plataforma inteligente de gestão ambiental.</p>
-      <div class="home-buttons">
-        <a href="registro-de-residuos.html" class="btn btn-primary">Mapa/Cadastro</a>
-        <a href="historico-e-acompanhamento.html" class="btn btn-outline">Histórico</a>
+  <section class="divisao-inicio">
+    <div class="esquerda-inicio">
+      <img src="images/logo.png" alt="RE-CICLE" class="logo-inicio">
+      <img src="images/nome.png" alt="RE-CICLE" class="nome-inicio">
+      <p class="frase-inicio" id="fraseInicio">Registre, acompanhe e reduza seus resíduos com nossa plataforma inteligente de gestão ambiental.</p>
+
+      <div class="botoes-inicio">
+        <a href="registro-de-residuos.html" class="btn btn-primary" data-perfis="candidato,ong">Mapa/Cadastro</a>
+        <a href="historico-e-acompanhamento.html" class="btn btn-outline" data-perfis="tutor,candidato,ong,prefeitura">Histórico</a>
+      </div>
+
+      <div id="painelDashboard" class="recolher-painel">
+        <div class="recolher-painel-header" id="alternarPainel" tabindex="0" role="button">
+          <span id="tituloDashboard">Seu Painel</span>
+          <span class="seta-recolher">▼</span>
+        </div>
+        <div class="corpo-recolher" id="corpoPainel">
+          <div id="conteudoDashboard"></div>
+        </div>
       </div>
     </div>
-    <div class="home-right">
-      <div class="home-right-inner">
-        <h2 class="home-right-title">Como funciona?</h2>
-        <div class="home-steps">
-          <div class="home-step">
-            <div class="home-step-num">1</div>
-            <div>
-              <h4>Separar resíduos</h4>
-              <p>Papel, plástico, vidro, metal, orgânicos e eletrônicos.</p>
-            </div>
+
+    <div class="direita-inicio">
+      <div class="direita-inicio-inner">
+        <div class="recolher-secao">
+          <div class="recolher-secao-header" tabindex="0" role="button">
+            <span>Como funciona?</span>
+            <span class="seta-recolher open">▼</span>
           </div>
-          <div class="home-step">
-            <div class="home-step-num">2</div>
-            <div>
-              <h4>Consultar mapa</h4>
-              <p>Encontre pontos de coleta mais próximos.</p>
-            </div>
-          </div>
-          <div class="home-step">
-            <div class="home-step-num">3</div>
-            <div>
-              <h4>Localizar pontos</h4>
-              <p>Veja horários e contato de cada local.</p>
-            </div>
-          </div>
-          <div class="home-step">
-            <div class="home-step-num">4</div>
-            <div>
-              <h4>Acompanhar</h4>
-              <p>Monitore seu impacto ambiental.</p>
+          <div class="recolher-secao-body open">
+            <div class="passos">
+              <div class="passo">
+                <div class="passo-num">1</div>
+                <div><h4>Separar resíduos</h4><p>Papel, plástico, vidro, metal, orgânicos e eletrônicos.</p></div>
+              </div>
+              <div class="passo">
+                <div class="passo-num">2</div>
+                <div><h4>Consultar mapa</h4><p>Encontre pontos de coleta mais próximos.</p></div>
+              </div>
+              <div class="passo">
+                <div class="passo-num">3</div>
+                <div><h4>Localizar pontos</h4><p>Veja horários e contato de cada local.</p></div>
+              </div>
+              <div class="passo">
+                <div class="passo-num">4</div>
+                <div><h4>Acompanhar</h4><p>Monitore seu impacto ambiental.</p></div>
+              </div>
             </div>
           </div>
         </div>
-        <p class="home-about">O RE-CICLE conecta geradores de resíduos a pontos de coleta, facilitando o descarte correto e promovendo a sustentabilidade.</p>
+
+        <div class="recolher-secao espaco-entre" style="margin-top:12px;">
+          <div class="recolher-secao-header" tabindex="0" role="button">
+            <span>Dica do Dia</span>
+            <span class="seta-recolher open">▼</span>
+          </div>
+          <div class="recolher-secao-body open" id="corpoDica">
+            <div id="conteudoDica">
+              <p style="color:var(--text-muted);">Carregando...</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <script>
-    document.getElementById('menuToggle')?.addEventListener('click', function() {
-      document.getElementById('mainNav')?.classList.toggle('open');
+    const papel = sessionStorage.getItem("papel");
+    const usuario = sessionStorage.getItem("usuario");
+
+    if (!papel || !usuario) {
+      window.location.href = "index.html";
+    }
+
+    document.querySelectorAll("[data-perfis]").forEach(function(el) {
+      const perfis = el.getAttribute("data-perfis").split(",");
+      if (!perfis.includes(papel)) {
+        el.style.display = "none";
+      }
+    });
+
+    var rotuloPapel = { tutor:"Tutor", candidato:"Candidato", ong:"ONG", prefeitura:"Prefeitura" };
+    document.getElementById('usuarioNav').textContent = rotuloPapel[papel] || papel;
+
+    document.getElementById('btnSair')?.addEventListener('click', function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    document.getElementById('alternarMenu')?.addEventListener('click', function() {
+      document.getElementById('navPrincipal')?.classList.toggle('open');
+    });
+
+    var TIPOS = { papel: "Papel", plastico: "Plástico", vidro: "Vidro", metal: "Metal", organico: "Orgânico", eletronico: "Eletrônico" };
+    function pegarRegistros(u) {
+      return JSON.parse(localStorage.getItem("historico_" + u) || "[]");
+    }
+    function pegarPontos() {
+      return JSON.parse(localStorage.getItem("pontosColeta") || "[]");
+    }
+    function pegarDicas() {
+      return JSON.parse(localStorage.getItem("dicas") || "[]");
+    }
+    function formatarNum(n) {
+      return n.toFixed(1).replace(".",",");
+    }
+
+    
+    function renderizarPainel() {
+      var dc = document.getElementById("conteudoDashboard");
+      var titulo = document.getElementById("tituloDashboard");
+
+      switch (papel) {
+        case "tutor": {
+          titulo.textContent = "Painel do Tutor";
+          var dicas = pegarDicas();
+          var totalDicas = dicas.length;
+          var ultima = dicas.length > 0 ? dicas[dicas.length - 1] : null;
+          dc.innerHTML =
+            '<div class="linha-stats" style="grid-template-columns:repeat(2,1fr);">' +
+              '<div class="mini-stat"><div class="num">' + totalDicas + '</div><div class="label">Dicas cadastradas</div></div>' +
+              '<div class="mini-stat"><div class="num">♻</div><div class="label">Conteúdo educativo</div></div>' +
+            '</div>' +
+            (ultima ? '<p style="font-size:0.85rem; color:var(--text-light); margin-top:8px;"><strong>Última dica:</strong> "' + ultima.titulo + '"</p>' : '<p style="font-size:0.85rem; color:var(--text-light); margin-top:8px;">Nenhuma dica cadastrada ainda.</p>') +
+            '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">' +
+              '<a href="dicas-sustentaveis.html" class="btn btn-secondary btn-sm">Gerenciar Dicas</a>' +
+              '<a href="relatorios.html" class="btn btn-outline btn-sm">Relatórios</a>' +
+            '</div>';
+          break;
+        }
+        case "candidato": {
+          titulo.textContent = "Meu Impacto";
+          var regs = pegarRegistros(usuario);
+          var totalKg = 0, concluidos = 0, pendentes = 0;
+          var porTipo = {};
+          regs.forEach(function(r) {
+            totalKg += Number(r.qtde) || 0;
+            if (r.status === "concluido") concluidos++;
+            else pendentes++;
+            var tipo = r.tipo || "outro";
+            porTipo[tipo] = (porTipo[tipo] || 0) + Number(r.qtde);
+          });
+          var topTipo = Object.keys(porTipo).sort(function(a,b){ return (porTipo[b]||0) - (porTipo[a]||0); })[0];
+          dc.innerHTML =
+            '<div class="linha-stats" style="grid-template-columns:repeat(2,1fr);">' +
+              '<div class="mini-stat"><div class="num">' + formatarNum(totalKg) + '</div><div class="label">kg coletados</div></div>' +
+              '<div class="mini-stat"><div class="num">' + regs.length + '</div><div class="label">Registros</div></div>' +
+            '</div>' +
+            (topTipo ? '<p style="font-size:0.85rem; color:var(--text-light); margin-top:8px;">' + concluidos + ' concluídos · Maior volume: ' + (TIPOS[topTipo]||topTipo) + '</p>' : '<p style="font-size:0.85rem; color:var(--text-light); margin-top:8px;">' + concluidos + ' coletas concluídas de ' + regs.length + '</p>') +
+            '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">' +
+              '<a href="registro-de-residuos.html" class="btn btn-primary btn-sm">Novo Registro</a>' +
+              '<a href="historico-e-acompanhamento.html" class="btn btn-secondary btn-sm">Meu Histórico</a>' +
+            '</div>';
+          break;
+        }
+        case "ong": {
+          titulo.textContent = "Painel da ONG";
+          var pontos = pegarPontos();
+          var allFavs = JSON.parse(localStorage.getItem("favoritos_" + usuario) || "[]");
+          var todosRegs = [];
+          Object.keys(localStorage).filter(function(k) { return k.indexOf("historico_") === 0; }).forEach(function(k) {
+            Array.prototype.push.apply(todosRegs, JSON.parse(localStorage.getItem(k) || "[]"));
+          });
+          var totalKgCidade = 0;
+          todosRegs.forEach(function(r) { totalKgCidade += Number(r.qtde) || 0; });
+          dc.innerHTML =
+            '<div class="linha-stats" style="grid-template-columns:repeat(2,1fr);">' +
+              '<div class="mini-stat"><div class="num">' + pontos.length + '</div><div class="label">Pontos de coleta</div></div>' +
+              '<div class="mini-stat"><div class="num">' + allFavs.length + '</div><div class="label">Favoritos</div></div>' +
+            '</div>' +
+            '<p style="font-size:0.85rem; color:var(--text-light); margin-top:8px;">' + formatarNum(totalKgCidade) + ' kg registrados pela comunidade.</p>' +
+            '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">' +
+              '<a href="registro-de-residuos.html" class="btn btn-primary btn-sm">Gerenciar Pontos</a>' +
+              '<a href="relatorios.html" class="btn btn-outline btn-sm">Relatórios</a>' +
+            '</div>';
+          break;
+        }
+        case "prefeitura": {
+          titulo.textContent = "Painel da Prefeitura";
+          var todasPessoas = Object.keys(localStorage).filter(function(k) { return k.indexOf("historico_") === 0; });
+          var totalRegs = 0, totalKg = 0, concluidos = 0;
+          todasPessoas.forEach(function(k) {
+            var r = JSON.parse(localStorage.getItem(k) || "[]");
+            r.forEach(function(x) {
+              totalRegs++;
+              totalKg += Number(x.qtde) || 0;
+              if (x.status === "concluido") concluidos++;
+            });
+          });
+          dc.innerHTML =
+            '<div class="linha-stats" style="grid-template-columns:repeat(2,1fr);">' +
+              '<div class="mini-stat"><div class="num">' + formatarNum(totalKg) + '</div><div class="label">kg coletados (cidade)</div></div>' +
+              '<div class="mini-stat"><div class="num">' + totalRegs + '</div><div class="label">Registros (cidade)</div></div>' +
+            '</div>' +
+            '<p style="font-size:0.85rem; color:var(--text-light); margin-top:8px;">' + todasPessoas.length + ' cidadãos ativos · ' + concluidos + ' coletas concluídas</p>' +
+            '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">' +
+              '<a href="relatorios.html" class="btn btn-primary btn-sm">Relatórios</a>' +
+              '<a href="historico-e-acompanhamento.html" class="btn btn-secondary btn-sm">Acompanhar</a>' +
+            '</div>';
+          break;
+        }
+      }
+    }
+    renderizarPainel();
+
+    
+    var _cacheDicas = pegarDicas();
+    var _frasesFixas = [
+      "Separar o lixo orgânico do reciclável já faz uma grande diferença!",
+      "Uma tonelada de papel reciclado salva cerca de 20 árvores.",
+      "O vidro é 100% reciclável e pode ser reutilizado infinitas vezes.",
+      "Plástico leva em média 400 anos para se decompor na natureza.",
+      "Reciclar uma lata de alumínio economiza energia suficiente para ligar uma TV por 3 horas.",
+      "Brasil recicla apenas 4% dos resíduos sólidos — podemos melhorar!",
+      "Compostagem transforma resíduos orgânicos em adubo rico em nutrientes.",
+      "O lixo eletrônico contém metais pesados que contaminam o solo e a água."
+    ];
+
+    function exibirDica(idx) {
+      var container = document.getElementById("conteudoDica");
+      if (_cacheDicas.length > 0) {
+        var i = (idx != null ? idx : new Date().getDate()) % _cacheDicas.length;
+        var d = _cacheDicas[i];
+        container.innerHTML =
+          '<div class="item-dica">' +
+            '<div class="icone-dica">' + (d.emoji || "💡") + '</div>' +
+            '<div class="corpo-dica">' +
+              '<h4>' + d.titulo + '</h4>' +
+              '<p>' + (d.descricao || d.desc || "") + '</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="rodape-dica">' +
+            '<button class="btn-proxima" onclick="exibirDica(' + ((i + 1) % _cacheDicas.length) + ')">🎲 Próxima</button>' +
+            '<a href="dicas-sustentaveis.html" class="link-ver-todas">Ver todas →</a>' +
+          '</div>';
+      } else {
+        var idxFrase = (idx != null ? idx : new Date().getDate()) % _frasesFixas.length;
+        container.innerHTML =
+          '<div class="item-dica">' +
+            '<div class="icone-dica">🌱</div>' +
+            '<div class="corpo-dica">' +
+              '<p>' + _frasesFixas[idxFrase] + '</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="rodape-dica">' +
+            '<button class="btn-proxima" onclick="exibirDica(' + ((idxFrase + 1) % _frasesFixas.length) + ')">🎲 Outra</button>' +
+          '</div>';
+      }
+    }
+    exibirDica();
+
+    
+    document.querySelectorAll(".recolher-painel-header, .recolher-secao-header").forEach(function(h) {
+      h.addEventListener("click", function() {
+        var body = this.parentElement.querySelector(".corpo-recolher, .recolher-secao-body");
+        var arrow = this.querySelector(".seta-recolher");
+        if (body) body.classList.toggle("open");
+        if (arrow) arrow.classList.toggle("open");
+      });
     });
   </script>
 </body>
 </html>
+
+
+

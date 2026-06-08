@@ -12,96 +12,264 @@
       <a href="pagina-principal.html" class="logo">
         <img src="images/navbar.png" alt="RE-CICLE">
       </a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
-      <nav class="nav" id="mainNav">
-        <a href="pagina-principal.html">Página Inicial</a>
-        <a href="registro-de-residuos.html">Mapa/Cadastro de Resíduos</a>
-        <a href="historico-e-acompanhamento.html">Histórico e Acompanhamento</a>
-        <a href="dicas-sustentaveis.html" class="active">Dicas Sustentáveis</a>
-        <a href="suporte.html">Suporte</a>
+      <button class="menu-toggle" id="alternarMenu" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="navPrincipal">
+        <a href="pagina-principal.html" data-perfis="tutor,candidato,ong,prefeitura">Página Inicial</a>
+        <a href="registro-de-residuos.html" data-perfis="candidato,ong">Mapa/Cadastro de Resíduos</a>
+        <a href="historico-e-acompanhamento.html" data-perfis="tutor,candidato,ong,prefeitura">Histórico e Acompanhamento</a>
+        <a href="dicas-sustentaveis.html" class="active" data-perfis="tutor,candidato,ong,prefeitura">Dicas Sustentáveis</a>
+        <a href="relatorios.html" data-perfis="tutor,candidato,ong,prefeitura">Relatórios</a>
+        <a href="gerenciar-usuario.html" data-perfis="tutor,candidato,ong,prefeitura">Gerenciar Usuário</a>
+        <a href="suporte.html" data-perfis="tutor,candidato,ong,prefeitura">Suporte</a>
+        <span class="nav-user" id="usuarioNav"></span>
+        <button class="btn-logout" id="btnSair" title="Sair">Sair</button>
       </nav>
     </div>
   </header>
 
   <main class="main">
-    <div class="page-header">
-      <h1>Dicas Sustentáveis</h1>
-      <p>Pequenas atitudes que geram grandes impactos positivos no meio ambiente.</p>
-    </div>
-
-    <div class="card-grid">
-      <div class="tip-card">
-        <div class="tip-image" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);">
-          <span class="tip-emoji">♻</span>
-        </div>
-        <div class="tip-body">
-          <span class="tip-tag" style="background:#E8F5E9; color:#2E7D32;">Reciclagem</span>
-          <h3>Coleta Seletiva</h3>
-          <p>Separe corretamente papel, plástico, vidro e metal. Utilize lixeiras coloridas e identifique cada tipo de resíduo. A coleta seletiva é o primeiro passo para a reciclagem eficiente.</p>
-        </div>
+    <div class="cabecalho-pagina flex-header">
+      <div>
+        <h1>Dicas Sustentáveis</h1>
+        <p>Pequenas atitudes que geram grandes impactos positivos no meio ambiente.</p>
       </div>
-
-      <div class="tip-card">
-        <div class="tip-image" style="background: linear-gradient(135deg, #F3E5F5, #E1BEE7);">
-          <span class="tip-emoji">🔋</span>
-        </div>
-        <div class="tip-body">
-          <span class="tip-tag" style="background:#F3E5F5; color:#7B1FA2;">Eletrônicos</span>
-          <h3>Resíduos Eletrônicos</h3>
-          <p>Nunca descarte eletrônicos no lixo comum. Eles contêm metais pesados que contaminam o solo e a água. Procure pontos de coleta específicos para lixo eletrônico na sua cidade.</p>
-        </div>
-      </div>
-
-      <div class="tip-card">
-        <div class="tip-image" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);">
-          <span class="tip-emoji">🛍️</span>
-        </div>
-        <div class="tip-body">
-          <span class="tip-tag" style="background:#FFF3E0; color:#E65100;">Consumo</span>
-          <h3>Redução de Descartáveis</h3>
-          <p>Substitua copos descartáveis por canecas reutilizáveis, use sacolas de pano e evite embalagens desnecessárias. Pequenas mudanças no dia a dia reduzem significativamente a geração de resíduos.</p>
-        </div>
-      </div>
-
-      <div class="tip-card">
-        <div class="tip-image" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);">
-          <span class="tip-emoji">📊</span>
-        </div>
-        <div class="tip-body">
-          <span class="tip-tag" style="background:#E3F2FD; color:#1565C0;">Engajamento</span>
-          <h3>Divulgação de Resultados</h3>
-          <p>Compartilhe seus resultados de reciclagem com amigos e familiares. Divulgar boas práticas inspira outras pessoas a adotarem hábitos mais sustentáveis.</p>
-        </div>
-      </div>
-
-      <div class="tip-card">
-        <div class="tip-image" style="background: linear-gradient(135deg, #E8F5E9, #A5D6A7);">
-          <span class="tip-emoji">🌱</span>
-        </div>
-        <div class="tip-body">
-          <span class="tip-tag" style="background:#E8F5E9; color:#1B5E20;">Educação</span>
-          <h3>Educação Ambiental</h3>
-          <p>Participe de workshops, palestras e eventos sobre sustentabilidade. Quanto mais conhecimento, melhores são as escolhas para o planeta e para as futuras gerações.</p>
-        </div>
-      </div>
-
-      <div class="tip-card">
-        <div class="tip-image" style="background: linear-gradient(135deg, #FFF8E1, #FFECB3);">
-          <span class="tip-emoji">💧</span>
-        </div>
-        <div class="tip-body">
-          <span class="tip-tag" style="background:#FFF8E1; color:#F57F17;">Compostagem</span>
-          <h3>Compostagem Caseira</h3>
-          <p>Transforme restos de alimentos em adubo para plantas. A compostagem reduz em até 50% o volume de lixo doméstico e produz fertilizante natural e gratuito para seu jardim.</p>
-        </div>
+      <div id="tipsAdminBar" style="display:none;">
+        <button class="btn btn-primary btn-sm" id="btnNovaDica">+ Nova Dica</button>
       </div>
     </div>
+
+    <div class="grade-cartoes" id="tipsGrid"></div>
+    <p id="noTips" style="display:none; text-align:center; padding:48px; color:var(--text-muted);">Nenhuma dica cadastrada ainda.</p>
   </main>
 
+  <div id="tipModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:2000; align-items:center; justify-content:center;">
+    <div style="background:var(--white); border-radius:var(--radius); padding:32px; max-width:520px; width:90%;">
+      <h3 style="margin-bottom:16px;" id="tipModalTitle">Nova Dica</h3>
+      <form id="tipForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Categoria</label>
+            <input type="text" id="tipTag" class="form-input" placeholder="Ex: Reciclagem" required>
+          </div>
+          <div class="form-group">
+            <label>Emoji</label>
+            <input type="text" id="tipEmoji" class="form-input" placeholder="♻" maxlength="2" style="margin-bottom:8px;" readonly>
+            <div id="emojiPicker" style="display:flex; flex-wrap:wrap; gap:6px; padding:8px; border:1px solid var(--border); border-radius:var(--radius); overflow-y:auto;">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" id="tipTitulo" class="form-input" placeholder="Título da dica" required>
+        </div>
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea id="tipDesc" class="form-textarea" placeholder="Conteúdo da dica..." required></textarea>
+        </div>
+        <div style="display:flex; gap:12px; justify-content:flex-end; margin-top:24px;">
+          <button type="button" class="btn btn-outline" id="tipModalCancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
-    document.getElementById('menuToggle')?.addEventListener('click', function() {
-      document.getElementById('mainNav')?.classList.toggle('open');
+    const papel = sessionStorage.getItem("papel");
+    const usuario = sessionStorage.getItem("usuario");
+    if (!papel || !usuario) { window.location.href = "index.html"; }
+
+    document.querySelectorAll("#navPrincipal a[data-perfis]").forEach(function(link) {
+      const perfis = link.getAttribute("data-perfis").split(",");
+      if (!perfis.includes(papel)) { link.style.display = "none"; }
     });
+
+    var rotuloPapel = { tutor:"Tutor", candidato:"Candidato", ong:"ONG", prefeitura:"Prefeitura" };
+    document.getElementById('usuarioNav').textContent = rotuloPapel[papel] || papel;
+
+    document.getElementById('btnSair')?.addEventListener('click', function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    document.getElementById('alternarMenu')?.addEventListener('click', function() {
+      document.getElementById('navPrincipal')?.classList.toggle('open');
+    });
+
+    var editandoTipId = null;
+
+    var EMOJIS = ["♻","🌱","🌍","🌿","🍃","🌳","💡","🔋","💧","☀️","🐢","💚","🗑️","🚮","🚛","📦","📊","🌊","🦋","🐝","🌈","🧴","🥤","🥡","🧵","📱","🔌","🧹","🍎","🥕","🍞"];
+
+    var CORES = [
+      { bg: "#E8F5E9", tag: "#2E7D32" },
+      { bg: "#F3E5F5", tag: "#7B1FA2" },
+      { bg: "#FFF3E0", tag: "#E65100" },
+      { bg: "#E3F2FD", tag: "#1565C0" },
+      { bg: "#E8F5E9", tag: "#1B5E20" },
+      { bg: "#FFF8E1", tag: "#F57F17" },
+      { bg: "#FCE4EC", tag: "#C62828" },
+      { bg: "#E0F7FA", tag: "#00838F" },
+    ];
+
+    var TIPS_PADRAO = [
+      { id: 1, tag: "Reciclagem", emoji: "♻", titulo: "Coleta Seletiva", desc: "Separe corretamente papel, plástico, vidro e metal. Utilize lixeiras coloridas e identifique cada tipo de resíduo. A coleta seletiva é o primeiro passo para a reciclagem eficiente." },
+      { id: 2, tag: "Eletrônicos", emoji: "🔋", titulo: "Resíduos Eletrônicos", desc: "Nunca descarte eletrônicos no lixo comum. Eles contêm metais pesados que contaminam o solo e a água. Procure pontos de coleta específicos para lixo eletrônico na sua cidade." },
+      { id: 3, tag: "Consumo", emoji: "🛍️", titulo: "Redução de Descartáveis", desc: "Substitua copos descartáveis por canecas reutilizáveis, use sacolas de pano e evite embalagens desnecessárias. Pequenas mudanças no dia a dia reduzem significativamente a geração de resíduos." },
+      { id: 4, tag: "Engajamento", emoji: "📊", titulo: "Divulgação de Resultados", desc: "Compartilhe seus resultados de reciclagem com amigos e familiares. Divulgar boas práticas inspira outras pessoas a adotarem hábitos mais sustentáveis." },
+      { id: 5, tag: "Educação", emoji: "🌱", titulo: "Educação Ambiental", desc: "Participe de workshops, palestras e eventos sobre sustentabilidade. Quanto mais conhecimento, melhores são as escolhas para o planeta e para as futuras gerações." },
+      { id: 6, tag: "Compostagem", emoji: "💧", titulo: "Compostagem Caseira", desc: "Transforme restos de alimentos em adubo para plantas. A compostagem reduz em até 50% o volume de lixo doméstico e produz fertilizante natural e gratuito para seu jardim." },
+    ];
+
+    function getDicas() {
+      var d = JSON.parse(localStorage.getItem("dicas") || "null");
+      if (!d) { localStorage.setItem("dicas", JSON.stringify(TIPS_PADRAO)); return TIPS_PADRAO; }
+      return d;
+    }
+
+    function salvarDicas(lista) {
+      localStorage.setItem("dicas", JSON.stringify(lista));
+    }
+
+    function renderDicas() {
+      var lista = getDicas();
+      var grid = document.getElementById("tipsGrid");
+      var noTips = document.getElementById("noTips");
+      var podeEditar = (papel === "tutor");
+
+      if (lista.length === 0) {
+        grid.innerHTML = "";
+        noTips.style.display = "block";
+        return;
+      }
+      noTips.style.display = "none";
+
+      grid.innerHTML = lista.map(function(tip, idx) {
+        var cor = CORES[idx % CORES.length];
+        var acoes = podeEditar ? (
+          '<div style="display:flex; gap:6px; justify-content:center; margin-top:12px;">' +
+            '<button class="btn btn-sm btn-secondary btnEditTip" data-id="' + tip.id + '">Editar</button>' +
+            '<button class="btn btn-sm btn-danger btnDelTip" data-id="' + tip.id + '">Excluir</button>' +
+          '</div>'
+        ) : "";
+        return (
+          '<div class="tip-card">' +
+            '<div class="tip-image" style="background:linear-gradient(135deg, ' + cor.bg + ', ' + cor.bg + ');">' +
+              '<span class="tip-emoji">' + tip.emoji + '</span>' +
+            '</div>' +
+            '<div class="tip-body">' +
+              '<span class="tip-tag" style="background:' + cor.bg + '; color:' + cor.tag + ';">' + tip.tag + '</span>' +
+              '<h3>' + tip.titulo + '</h3>' +
+              '<p>' + tip.desc + '</p>' +
+              acoes +
+            '</div>' +
+          '</div>'
+        );
+      }).join("");
+
+      document.querySelectorAll(".btnEditTip").forEach(function(btn) {
+        btn.addEventListener("click", function() { abrirTipModal(Number(this.dataset.id)); });
+      });
+      document.querySelectorAll(".btnDelTip").forEach(function(btn) {
+        btn.addEventListener("click", function() { excluirTip(Number(this.dataset.id)); });
+      });
+    }
+
+    function montarEmojiPicker() {
+      var picker = document.getElementById("emojiPicker");
+      picker.innerHTML = EMOJIS.map(function(e) {
+        return '<span class="emoji-opt" data-e="' + e + '" style="cursor:pointer; font-size:24px; padding:4px; border-radius:6px; line-height:1;">' + e + '</span>';
+      }).join("");
+      picker.querySelectorAll(".emoji-opt").forEach(function(el) {
+        el.addEventListener("click", function() {
+          picker.querySelectorAll(".emoji-opt").forEach(function(x) { x.style.background = ""; });
+          this.style.background = "var(--primary-light, #d0ebff)";
+          document.getElementById("tipEmoji").value = this.dataset.e;
+        });
+      });
+    }
+    montarEmojiPicker();
+
+    function abrirTipModal(id) {
+      editandoTipId = id;
+      var lista = getDicas();
+      if (id) {
+        var r = lista.find(function(x) { return x.id === id; });
+        if (!r) return;
+        document.getElementById("tipModalTitle").textContent = "Editar Dica";
+        document.getElementById("tipTag").value = r.tag;
+        document.getElementById("tipEmoji").value = r.emoji;
+        document.getElementById("tipTitulo").value = r.titulo;
+        document.getElementById("tipDesc").value = r.desc;
+        document.querySelectorAll("#emojiPicker .emoji-opt").forEach(function(el) {
+          if (el.dataset.e === r.emoji) { el.style.background = "var(--primary-light, #d0ebff)"; }
+        });
+      } else {
+        document.getElementById("tipModalTitle").textContent = "Nova Dica";
+        document.getElementById("tipForm").reset();
+        document.querySelectorAll("#emojiPicker .emoji-opt").forEach(function(x) { x.style.background = ""; });
+      }
+      document.getElementById("tipModal").style.display = "flex";
+    }
+
+    function fecharTipModal() {
+      document.getElementById("tipModal").style.display = "none";
+      editandoTipId = null;
+    }
+
+    function excluirTip(id) {
+      if (!confirm("Excluir esta dica?")) return;
+      var lista = getDicas();
+      lista = lista.filter(function(x) { return x.id !== id; });
+      salvarDicas(lista);
+      renderDicas();
+    }
+
+    document.getElementById("tipForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      var lista = getDicas();
+      if (editandoTipId) {
+        var idx = lista.findIndex(function(x) { return x.id === editandoTipId; });
+        if (idx !== -1) {
+          lista[idx] = {
+            id: editandoTipId,
+            tag: document.getElementById("tipTag").value,
+            emoji: document.getElementById("tipEmoji").value,
+            titulo: document.getElementById("tipTitulo").value,
+            desc: document.getElementById("tipDesc").value,
+          };
+        }
+      } else {
+        var maxId = lista.reduce(function(m, x) { return x.id > m ? x.id : m; }, 0);
+        lista.push({
+          id: maxId + 1,
+          tag: document.getElementById("tipTag").value,
+          emoji: document.getElementById("tipEmoji").value,
+          titulo: document.getElementById("tipTitulo").value,
+          desc: document.getElementById("tipDesc").value,
+        });
+      }
+      salvarDicas(lista);
+      fecharTipModal();
+      renderDicas();
+    });
+
+    document.getElementById("tipModalCancel").addEventListener("click", fecharTipModal);
+    document.getElementById("tipModal").addEventListener("click", function(e) {
+      if (e.target === this) fecharTipModal();
+    });
+
+    if (papel === "tutor") {
+      document.getElementById("tipsAdminBar").style.display = "block";
+    }
+
+    document.getElementById("btnNovaDica")?.addEventListener("click", function() {
+      abrirTipModal(null);
+    });
+
+    renderDicas();
   </script>
 </body>
 </html>
+
+
+

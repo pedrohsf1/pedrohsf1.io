@@ -13,26 +13,30 @@
       <a href="pagina-principal.html" class="logo">
         <img src="images/navbar.png" alt="RE-CICLE">
       </a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
-      <nav class="nav" id="mainNav">
-        <a href="pagina-principal.html">Página Inicial</a>
-        <a href="registro-de-residuos.html" class="active">Mapa/Cadastro de Resíduos</a>
-        <a href="historico-e-acompanhamento.html">Histórico e Acompanhamento</a>
-        <a href="dicas-sustentaveis.html">Dicas Sustentáveis</a>
-        <a href="suporte.html">Suporte</a>
+      <button class="menu-toggle" id="alternarMenu" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="navPrincipal">
+        <a href="pagina-principal.html" data-perfis="tutor,candidato,ong,prefeitura">Página Inicial</a>
+        <a href="registro-de-residuos.html" class="active" data-perfis="candidato,ong">Mapa/Cadastro de Resíduos</a>
+        <a href="historico-e-acompanhamento.html" data-perfis="tutor,candidato,ong,prefeitura">Histórico e Acompanhamento</a>
+        <a href="dicas-sustentaveis.html" data-perfis="tutor,candidato,ong,prefeitura">Dicas Sustentáveis</a>
+        <a href="relatorios.html" data-perfis="tutor,candidato,ong,prefeitura">Relatórios</a>
+        <a href="gerenciar-usuario.html" data-perfis="tutor,candidato,ong,prefeitura">Gerenciar Usuário</a>
+        <a href="suporte.html" data-perfis="tutor,candidato,ong,prefeitura">Suporte</a>
+        <span class="nav-user" id="usuarioNav"></span>
+        <button class="btn-logout" id="btnSair" title="Sair">Sair</button>
       </nav>
     </div>
   </header>
 
   <main class="main">
-    <div class="page-header">
+    <div class="cabecalho-pagina">
       <h1>Mapa/Cadastro de Resíduos</h1>
-      <p>Registre seus resíduos e encontre pontos de coleta próximos.</p>
+      <p id="subHeaderMsg">Registre seus resíduos e encontre pontos de coleta próximos.</p>
     </div>
 
-    <div class="split-layout">
+    <div class="layout-dividido">
       <div>
-        <div class="card">
+        <div class="card" id="registerWasteCard">
           <h3 style="font-size:1.15rem; font-weight:600; margin-bottom:24px;">Registrar Resíduo</h3>
           <form id="wasteForm">
             <div class="form-group">
@@ -49,15 +53,9 @@
                 <option value="outro">Outro</option>
               </select>
             </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="quantidade">Quantidade (kg)</label>
-                <input type="number" id="quantidade" class="form-input" step="0.1" min="0" placeholder="0.0" required>
-              </div>
-              <div class="form-group">
-                <label for="localidade">Localidade</label>
-                <input type="text" id="localidade" class="form-input" placeholder="Bairro, cidade" required>
-              </div>
+            <div class="form-group">
+              <label for="quantidade">Quantidade (kg)</label>
+              <input type="number" id="quantidade" class="form-input" step="0.1" min="0" placeholder="0.0" required>
             </div>
             <div class="form-group">
               <label for="obs">Observações</label>
@@ -67,83 +65,38 @@
           </form>
         </div>
 
-        <div class="filter-pills" style="margin-top:20px;">
-          <button class="filter-pill active">Todos</button>
-          <button class="filter-pill">Papel</button>
-          <button class="filter-pill">Plástico</button>
-          <button class="filter-pill">Vidro</button>
-          <button class="filter-pill">Metal</button>
-          <button class="filter-pill">Orgânico</button>
-          <button class="filter-pill">Eletrônico</button>
-        </div>
-
-        <div class="collection-points">
-          <h3>Pontos de Coleta</h3>
-          <div class="point-card">
-            <div class="point-icon">♻</div>
-            <div class="point-info">
-              <h4>Ecoponto Centro</h4>
-              <p>Rua das Flores, 150 - Centro • 7h às 19h</p>
+          <div id="ongPointsSection">
+          <div class="points-header">
+            <h3>Pontos de Coleta</h3>
+            <div class="points-header-actions">
+              <label class="filtro-pill" id="favFilterBtn" style="cursor:pointer; font-size:0.78rem; padding:4px 14px;">⭐ Favoritos</label>
+              <button class="btn btn-primary btn-sm" id="btnNovoPonto" style="display:none;">+ Novo Ponto</button>
             </div>
-            <button class="point-favorite">☆</button>
           </div>
-          <div class="point-card">
-            <div class="point-icon">♻</div>
-            <div class="point-info">
-              <h4>PEV Zona Sul</h4>
-              <p>Av. Paulista, 2000 - Paraíso • 8h às 18h</p>
-            </div>
-            <button class="point-favorite active">★</button>
-          </div>
-          <div class="point-card">
-            <div class="point-icon">♻</div>
-            <div class="point-info">
-              <h4>Coleta Seletiva - Jardim América</h4>
-              <p>Rua Augusta, 500 • 6h às 12h</p>
-            </div>
-            <button class="point-favorite">☆</button>
-          </div>
-          <div class="point-card">
-            <div class="point-icon">♻</div>
-            <div class="point-info">
-              <h4>Ecoponto Zona Norte</h4>
-              <p>Av. Brás Leme, 800 • 7h às 17h</p>
-            </div>
-            <button class="point-favorite">☆</button>
-          </div>
+          <div id="pointsList"></div>
+          <p id="noPoints" style="display:none; text-align:center; padding:24px; color:var(--text-muted);">Nenhum ponto de coleta cadastrado.</p>
         </div>
       </div>
 
       <div>
         <h3 style="font-size:1.15rem; font-weight:600; margin-bottom:16px;">Mapa</h3>
-        <div id="map" style="height:520px; border-radius:var(--radius); border:1px solid var(--border); z-index:0;"></div>
+        <div id="map" style="height:520px; border-radius:var(--radius); border:1px solid var(--border); z-index:0;" class="container-mapa"></div>
 
-        <div style="margin-top:24px; padding:20px; background:var(--white); border-radius:var(--radius-sm); border:1px solid var(--border);">
-          <h4 style="font-size:0.95rem; font-weight:600; margin-bottom:12px;">Legenda dos Pontos</h4>
-          <div style="display:flex; flex-direction:column; gap:8px; font-size:0.85rem;">
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="width:16px; height:16px; border-radius:50%; background:#4CAF50; display:inline-block;"></span>
-              <span>Papel / Papelão</span>
+        <div id="locationPicker" style="margin-top:24px; padding:20px; background:var(--white); border-radius:var(--radius-sm); border:1px solid var(--border);">
+          <h4 style="font-size:0.95rem; font-weight:600; margin-bottom:12px;">
+            <span id="locPickerTitle">📍 Clique no mapa para definir o local</span>
+            <span id="locSelected" style="display:none; color:var(--primary);">📍 Local selecionado</span>
+          </h4>
+          <div id="locInfo" style="font-size:0.85rem; color:var(--text-light); margin-bottom:12px;">
+            Clique em qualquer ponto do mapa para marcar onde o resíduo foi gerado.
+          </div>
+          <div id="locForm" style="display:none;">
+            <div class="form-group" style="margin-bottom:8px;">
+              <input type="text" id="locNome" class="form-input" placeholder="Nome do local (ex: Praça Central)" style="font-size:0.85rem; padding:10px 14px;">
             </div>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="width:16px; height:16px; border-radius:50%; background:#F44336; display:inline-block;"></span>
-              <span>Plástico</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="width:16px; height:16px; border-radius:50%; background:#2196F3; display:inline-block;"></span>
-              <span>Vidro</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="width:16px; height:16px; border-radius:50%; background:#FF9800; display:inline-block;"></span>
-              <span>Metal</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="width:16px; height:16px; border-radius:50%; background:#795548; display:inline-block;"></span>
-              <span>Orgânico</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="width:16px; height:16px; border-radius:50%; background:#9C27B0; display:inline-block;"></span>
-              <span>Eletrônico</span>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span id="locCoords" style="font-size:0.78rem; color:var(--text-muted);"></span>
+              <button type="button" class="btn btn-sm btn-outline" id="btnLimparLocal" style="font-size:0.75rem; padding:6px 12px;">Limpar</button>
             </div>
           </div>
         </div>
@@ -151,52 +104,489 @@
     </div>
   </main>
 
+  <div id="pointModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:2000; align-items:center; justify-content:center;">
+    <div style="background:var(--white); border-radius:var(--radius); padding:32px; max-width:480px; width:90%;">
+      <h3 style="margin-bottom:16px;" id="pointModalTitle">Novo Ponto de Coleta</h3>
+      <form id="pointForm">
+        <div class="form-group">
+          <label>Nome do ponto</label>
+          <input type="text" id="pointNome" class="form-input" placeholder="Ex: Ecoponto Centro" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Endereço</label>
+            <input type="text" id="pointEnd" class="form-input" placeholder="Rua, número" required>
+          </div>
+          <div class="form-group">
+            <label>Bairro</label>
+            <input type="text" id="pointBairro" class="form-input" placeholder="Centro" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Horário início</label>
+            <input type="time" id="pointHrIni" class="form-input" value="07:00" required>
+          </div>
+          <div class="form-group">
+            <label>Horário fim</label>
+            <input type="time" id="pointHrFim" class="form-input" value="19:00" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tipos aceitos</label>
+          <select id="pointTipos" class="form-select" multiple>
+            <option value="papel" selected>Papel</option>
+            <option value="plastico">Plástico</option>
+            <option value="vidro">Vidro</option>
+            <option value="metal">Metal</option>
+            <option value="organico">Orgânico</option>
+            <option value="eletronico">Eletrônico</option>
+            <option value="perigoso">Perigoso</option>
+          </select>
+        </div>
+        <div style="display:flex; gap:12px; justify-content:flex-end; margin-top:24px;">
+          <button type="button" class="btn btn-outline" id="pointModalCancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    document.getElementById('menuToggle')?.addEventListener('click', function() {
-      document.getElementById('mainNav')?.classList.toggle('open');
+    function montarSelectCustom(sel) {
+      if (sel.multiple || sel.dataset.custom) return;
+      sel.dataset.custom = "1";
+      var wrapper = document.createElement("div");
+      wrapper.className = "cst-wrapper";
+      sel.parentNode.insertBefore(wrapper, sel);
+      wrapper.appendChild(sel);
+      sel.classList.add("cst-hide");
+
+      var trigger = document.createElement("div");
+      trigger.className = "cst-trigger";
+      trigger.textContent = sel.options[sel.selectedIndex]?.textContent || sel.options[0]?.textContent || "";
+      wrapper.insertBefore(trigger, sel);
+
+      var dropdown = document.createElement("div");
+      dropdown.className = "cst-dropdown";
+      wrapper.appendChild(dropdown);
+
+      function montarOpcoes() {
+        dropdown.innerHTML = "";
+        Array.from(sel.options).forEach(function(opt) {
+          if (opt.disabled && opt.value === "") return;
+          var div = document.createElement("div");
+          div.className = "cst-option" + (opt.selected ? " sel" : "");
+          div.textContent = opt.textContent;
+          div.dataset.value = opt.value;
+          div.addEventListener("click", function(e) {
+            e.stopPropagation();
+            sel.value = this.dataset.value;
+            trigger.textContent = this.textContent;
+            dropdown.querySelectorAll(".cst-option").forEach(function(o) { o.classList.remove("sel"); });
+            this.classList.add("sel");
+            fecharDropdown();
+            sel.dispatchEvent(new Event("change", { bubbles: true }));
+          });
+          dropdown.appendChild(div);
+        });
+      }
+      montarOpcoes();
+
+      function abrirDropdown() {
+        document.querySelectorAll(".cst-dropdown.open").forEach(function(d) {
+          if (d !== dropdown) { d.classList.remove("open"); d.previousElementSibling?.classList.remove("open"); }
+        });
+        dropdown.classList.add("open");
+        trigger.classList.add("open");
+      }
+      function fecharDropdown() {
+        dropdown.classList.remove("open");
+        trigger.classList.remove("open");
+      }
+
+      trigger.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (dropdown.classList.contains("open")) { fecharDropdown(); }
+        else { abrirDropdown(); }
+      });
+
+      document.addEventListener("click", function(e) {
+        if (!wrapper.contains(e.target)) fecharDropdown();
+      });
+
+      sel.addEventListener("customUpdate", montarOpcoes);
+    }
+
+    const papel = sessionStorage.getItem("papel");
+    const usuario = sessionStorage.getItem("usuario");
+    if (!papel || !usuario) { window.location.href = "index.html"; }
+
+    document.querySelectorAll("#navPrincipal a[data-perfis]").forEach(function(link) {
+      const perfis = link.getAttribute("data-perfis").split(",");
+      if (!perfis.includes(papel)) { link.style.display = "none"; }
+    });
+
+    var rotuloPapel = { tutor:"Tutor", candidato:"Candidato", ong:"ONG", prefeitura:"Prefeitura" };
+    document.getElementById('usuarioNav').textContent = rotuloPapel[papel] || papel;
+
+    document.getElementById('btnSair')?.addEventListener('click', function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    document.getElementById('alternarMenu')?.addEventListener('click', function() {
+      document.getElementById('navPrincipal')?.classList.toggle('open');
+    });
+
+    var editandoPontoId = null;
+    var mapMarkers = [];
+    var listaPontosAtual = [];
+    var exibirSoFavoritos = false;
+    var pontoSelecionadoId = null;
+    var localPickerMarker = null;
+    var localSelecionado = null;
+
+    var CORES_MAPA = {
+      papel: "#4CAF50", plastico: "#F44336", vidro: "#2196F3",
+      metal: "#FF9800", organico: "#795548", eletronico: "#9C27B0", perigoso: "#E53935"
+    };
+
+    var PONTOS_PADRAO = [
+      { id: 1, nome: "Ecoponto Centro", end: "Av. Jerônimo Monteiro, 150", bairro: "Centro - Vila Velha", hrIni: "07:00", hrFim: "19:00", lat: -20.3347, lng: -40.2936, tipos: ["papel","plastico","vidro"] },
+      { id: 2, nome: "PEV Praia da Costa", end: "Av. Antônio Gil Veloso, 2000", bairro: "Praia da Costa - Vila Velha", hrIni: "08:00", hrFim: "18:00", lat: -20.3192, lng: -40.2819, tipos: ["eletronico","metal"] },
+      { id: 3, nome: "Coleta Seletiva Glória", end: "Rua José Rocha, 500", bairro: "Glória - Vila Velha", hrIni: "06:00", hrFim: "12:00", lat: -20.3451, lng: -40.3018, tipos: ["papel","plastico"] },
+      { id: 4, nome: "Ecoponto Itaparica", end: "Av. Luciano das Neves, 800", bairro: "Itaparica - Vila Velha", hrIni: "07:00", hrFim: "17:00", lat: -20.3758, lng: -40.3136, tipos: ["organico","vidro"] },
+    ];
+
+    var TIPOS_LABEL = { papel: "Papel", plastico: "Plástico", vidro: "Vidro", metal: "Metal", organico: "Orgânico", eletronico: "Eletrônico", perigoso: "Perigoso" };
+
+    function getPontos() {
+      var p = JSON.parse(localStorage.getItem("pontosColeta") || "null");
+      if (!p) { localStorage.setItem("pontosColeta", JSON.stringify(PONTOS_PADRAO)); return PONTOS_PADRAO; }
+      return p;
+    }
+
+    function salvarPontos(lista) {
+      localStorage.setItem("pontosColeta", JSON.stringify(lista));
+    }
+
+    function renderPontos() {
+      var lista = getPontos();
+      listaPontosAtual = lista;
+      var container = document.getElementById("pointsList");
+      var noPoints = document.getElementById("noPoints");
+      var podeGerenciar = (papel === "ong");
+      var favs = JSON.parse(localStorage.getItem("favoritos_" + usuario) || "[]");
+
+      document.getElementById("btnNovoPonto").style.display = podeGerenciar ? "" : "none";
+      document.getElementById("favFilterBtn").style.display = favs.length > 0 ? "" : "none";
+
+      var exibir = lista;
+      if (exibirSoFavoritos) {
+        exibir = lista.filter(function(p) { return favs.indexOf(p.id) !== -1; });
+      }
+
+      if (exibir.length === 0) {
+        container.innerHTML = "";
+        noPoints.style.display = "block";
+        atualizarMapa();
+        return;
+      }
+      noPoints.style.display = "none";
+
+      container.innerHTML = exibir.map(function(p) {
+        var tiposStr = p.tipos.map(function(t) { return TIPOS_LABEL[t] || t; }).join(", ");
+        var isFav = favs.indexOf(p.id) !== -1;
+        var star = isFav ? "★" : "☆";
+        var starCls = isFav ? "active" : "";
+        var selecionado = (pontoSelecionadoId === p.id) ? ' style="border-color:var(--primary); background:var(--primary-bg);"' : "";
+        var acoes = podeGerenciar ? (
+          '<div style="display:flex; gap:4px; margin-left:8px;">' +
+            '<button class="btn btn-sm btn-secondary btnEditPt" data-id="' + p.id + '" style="padding:4px 10px; font-size:0.75rem;">Editar</button>' +
+            '<button class="btn btn-sm btn-danger btnDelPt" data-id="' + p.id + '" style="padding:4px 10px; font-size:0.75rem;">Excluir</button>' +
+          '</div>'
+        ) : "";
+        return (
+          '<div class="card-ponto card-ponto-link" data-id="' + p.id + '"' + selecionado + '>' +
+            '<div class="icone-ponto">♻</div>' +
+            '<div class="info-ponto">' +
+              '<h4>' + p.nome + '</h4>' +
+              '<p>' + p.end + ' - ' + p.bairro + ' • ' + p.hrIni + ' às ' + p.hrFim + '<br>' + tiposStr + '</p>' +
+            '</div>' +
+            acoes +
+            '<button class="favorito-ponto ' + starCls + ' btnFav" data-id="' + p.id + '">' + star + '</button>' +
+          '</div>'
+        );
+      }).join("");
+
+      document.querySelectorAll(".card-ponto-link").forEach(function(el) {
+        el.addEventListener("click", function(e) {
+          if (e.target.closest("button")) return;
+          var id = Number(this.dataset.id);
+          pontoSelecionadoId = id;
+          renderPontos();
+          var ponto = lista.find(function(p) { return p.id === id; });
+          if (ponto && window._map) {
+            window._map.setView([ponto.lat, ponto.lng], 15);
+          }
+        });
+      });
+
+      document.querySelectorAll(".btnFav").forEach(function(btn) {
+        btn.addEventListener("click", function(e) {
+          e.stopPropagation();
+          var id = Number(this.dataset.id);
+          var favs = JSON.parse(localStorage.getItem("favoritos_" + usuario) || "[]");
+          var idx = favs.indexOf(id);
+          if (idx === -1) { favs.push(id); } else { favs.splice(idx, 1); }
+          localStorage.setItem("favoritos_" + usuario, JSON.stringify(favs));
+          renderPontos();
+          atualizarMapa();
+        });
+      });
+
+      document.querySelectorAll(".btnEditPt").forEach(function(btn) {
+        btn.addEventListener("click", function(e) { e.stopPropagation(); abrirPontoModal(Number(this.dataset.id)); });
+      });
+      document.querySelectorAll(".btnDelPt").forEach(function(btn) {
+        btn.addEventListener("click", function(e) { e.stopPropagation(); excluirPonto(Number(this.dataset.id)); });
+      });
+
+      atualizarMapa();
+    }
+
+    function atualizarMapa() {
+      if (typeof L === "undefined") return;
+      if (!window._map) {
+        window._map = L.map('map').setView([-20.3297, -40.2925], 13);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; OSM &copy; CARTO', maxZoom: 18 }).addTo(window._map);
+
+        window._map.on("click", function(e) {
+          var card = document.getElementById("registerWasteCard");
+          if (card && card.style.display !== "none") {
+            selecionarLocal(e.latlng.lat, e.latlng.lng);
+          }
+        });
+      }
+      var m = window._map;
+      mapMarkers.forEach(function(mk) { m.removeLayer(mk); });
+      mapMarkers = [];
+
+      var lista = getPontos();
+      var favs = JSON.parse(localStorage.getItem("favoritos_" + usuario) || "[]");
+
+      lista.forEach(function(p) {
+        var tiposStr = p.tipos.map(function(t) { return TIPOS_LABEL[t] || t; }).join(", ");
+        var cor = p.tipos.length > 0 ? (CORES_MAPA[p.tipos[0]] || "#4CAF50") : "#4CAF50";
+        var isFav = favs.indexOf(p.id) !== -1;
+        var icone = L.divIcon({
+          className: "",
+          html: '<div style="background:' + cor + '; width:20px; height:20px; border-radius:50%; border:3px solid ' + (isFav ? "#FFD700" : "#fff") + '; box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>',
+          iconSize: [20, 20],
+          iconAnchor: [10, 10],
+        });
+        var mk = L.marker([p.lat, p.lng], { icon: icone }).addTo(m).bindPopup(
+          '<strong>' + p.nome + '</strong><br>' + p.end + ' - ' + p.bairro + '<br>' + tiposStr + '<br><em style="font-size:0.8rem;">' + p.hrIni + ' às ' + p.hrFim + '</em>' +
+          (isFav ? '<br><span style="color:#FFD700;">★ Favorito</span>' : '') +
+          '<br><button class="btn btn-sm btn-primary" onclick="irParaPonto(' + p.id + ')" style="margin-top:6px; padding:4px 12px; font-size:0.75rem;">Ver detalhes</button>'
+        );
+        mk.on("click", function() {
+          pontoSelecionadoId = p.id;
+          renderPontos();
+        });
+        mapMarkers.push(mk);
+      });
+    }
+
+    function irParaPonto(id) {
+      pontoSelecionadoId = id;
+      renderPontos();
+      var ponto = listaPontosAtual.find(function(p) { return p.id === id; });
+      if (ponto && window._map) {
+        window._map.setView([ponto.lat, ponto.lng], 15);
+      }
+      document.querySelector('.card-ponto[data-id="' + id + '"]')?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function abrirPontoModal(id) {
+      editandoPontoId = id;
+      var lista = getPontos();
+      if (id) {
+        var r = lista.find(function(x) { return x.id === id; });
+        if (!r) return;
+        document.getElementById("pointModalTitle").textContent = "Editar Ponto de Coleta";
+        document.getElementById("pointNome").value = r.nome;
+        document.getElementById("pointEnd").value = r.end;
+        document.getElementById("pointBairro").value = r.bairro;
+        document.getElementById("pointHrIni").value = r.hrIni;
+        document.getElementById("pointHrFim").value = r.hrFim;
+        var sel = document.getElementById("pointTipos");
+        for (var i = 0; i < sel.options.length; i++) {
+          sel.options[i].selected = r.tipos.indexOf(sel.options[i].value) !== -1;
+        }
+      } else {
+        document.getElementById("pointModalTitle").textContent = "Novo Ponto de Coleta";
+        document.getElementById("pointForm").reset();
+        document.getElementById("pointHrIni").value = "07:00";
+        document.getElementById("pointHrFim").value = "19:00";
+      }
+      document.getElementById("pointModal").style.display = "flex";
+    }
+
+    function fecharPontoModal() { document.getElementById("pointModal").style.display = "none"; editandoPontoId = null; }
+
+    function excluirPonto(id) {
+      if (!confirm("Excluir este ponto de coleta?")) return;
+      var lista = getPontos();
+      lista = lista.filter(function(x) { return x.id !== id; });
+      salvarPontos(lista);
+      renderPontos();
+    }
+
+    document.getElementById("pointForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      var lista = getPontos();
+      var sel = document.getElementById("pointTipos");
+      var tipos = [];
+      for (var i = 0; i < sel.options.length; i++) {
+        if (sel.options[i].selected) tipos.push(sel.options[i].value);
+      }
+
+      var lat = -20.33 + (Math.random() - 0.5) * 0.08;
+      var lng = -40.29 + (Math.random() - 0.5) * 0.06;
+
+      if (editandoPontoId) {
+        var idx = lista.findIndex(function(x) { return x.id === editandoPontoId; });
+        if (idx !== -1) {
+          lista[idx] = {
+            id: editandoPontoId,
+            nome: document.getElementById("pointNome").value,
+            end: document.getElementById("pointEnd").value,
+            bairro: document.getElementById("pointBairro").value,
+            hrIni: document.getElementById("pointHrIni").value,
+            hrFim: document.getElementById("pointHrFim").value,
+            lat: lista[idx].lat,
+            lng: lista[idx].lng,
+            tipos: tipos,
+          };
+        }
+      } else {
+        var maxId = lista.reduce(function(m, x) { return x.id > m ? x.id : m; }, 0);
+        lista.push({
+          id: maxId + 1,
+          nome: document.getElementById("pointNome").value,
+          end: document.getElementById("pointEnd").value,
+          bairro: document.getElementById("pointBairro").value,
+          hrIni: document.getElementById("pointHrIni").value,
+          hrFim: document.getElementById("pointHrFim").value,
+          lat: lat,
+          lng: lng,
+          tipos: tipos,
+        });
+      }
+      salvarPontos(lista);
+      fecharPontoModal();
+      renderPontos();
+    });
+
+    document.getElementById("pointModalCancel").addEventListener("click", fecharPontoModal);
+    document.getElementById("pointModal").addEventListener("click", function(e) { if (e.target === this) fecharPontoModal(); });
+
+    if (papel === "ong") {
+      document.getElementById("btnNovoPonto").style.display = "";
+    }
+    if (papel !== "candidato" && papel !== "ong") {
+      document.getElementById("registerWasteCard").style.display = "none";
+      document.getElementById("subHeaderMsg").textContent = "Visualize os pontos de coleta disponíveis.";
+    }
+
+    function selecionarLocal(lat, lng) {
+      localSelecionado = { lat: lat, lng: lng, nome: "" };
+      var m = window._map;
+      if (localPickerMarker) m.removeLayer(localPickerMarker);
+      var icone = L.divIcon({
+        className: "",
+        html: '<div style="background:#E53935; width:24px; height:24px; border-radius:50%; border:3px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff;">📍</div>',
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      });
+      localPickerMarker = L.marker([lat, lng], { icon: icone }).addTo(m).bindPopup("<strong>Local do resíduo</strong>");
+      m.setView([lat, lng], 15);
+
+      document.getElementById("locPickerTitle").style.display = "none";
+      document.getElementById("locSelected").style.display = "";
+      document.getElementById("locInfo").style.display = "none";
+      document.getElementById("locForm").style.display = "block";
+      document.getElementById("locCoords").textContent = lat.toFixed(4) + ", " + lng.toFixed(4);
+      document.getElementById("locNome").value = "";
+      document.getElementById("locNome").focus();
+    }
+
+    function limparLocal() {
+      localSelecionado = null;
+      if (localPickerMarker && window._map) {
+        window._map.removeLayer(localPickerMarker);
+        localPickerMarker = null;
+      }
+      document.getElementById("locPickerTitle").style.display = "";
+      document.getElementById("locSelected").style.display = "none";
+      document.getElementById("locInfo").style.display = "";
+      document.getElementById("locForm").style.display = "none";
+      document.getElementById("locNome").value = "";
+    }
+
+    document.getElementById("btnLimparLocal").addEventListener("click", limparLocal);
+
+    document.getElementById("btnNovoPonto").addEventListener("click", function() { abrirPontoModal(null); });
+
+    document.getElementById("favFilterBtn").addEventListener("click", function() {
+      exibirSoFavoritos = !exibirSoFavoritos;
+      this.classList.toggle("active");
+      renderPontos();
     });
 
     document.getElementById('wasteForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('Resíduo registrado! Coleta acionada com sucesso.');
-      window.location.href = 'historico-e-acompanhamento.html';
-    });
+      var tipo = document.getElementById("tipo").value;
+      var qtde = Number(document.getElementById("quantidade").value);
 
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-      pill.addEventListener('click', function() {
-        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-        this.classList.add('active');
+      if (!localSelecionado) {
+        alert("Clique no mapa para selecionar o local do resíduo.");
+        return;
+      }
+
+      var nomeLocal = document.getElementById("locNome").value.trim() || "Local sem nome";
+      var localStr = nomeLocal + " (" + localSelecionado.lat.toFixed(4) + ", " + localSelecionado.lng.toFixed(4) + ")";
+
+      var lista = JSON.parse(localStorage.getItem("historico_" + usuario) || "[]");
+      var maxId = lista.reduce(function(m, x) { return x.id > m ? x.id : m; }, 0);
+      var hoje = new Date().toISOString().split("T")[0];
+      lista.push({
+        id: maxId + 1,
+        data: hoje,
+        tipo: tipo,
+        qtde: qtde,
+        local: localStr,
+        lat: localSelecionado.lat,
+        lng: localSelecionado.lng,
+        status: "andamento",
       });
+      localStorage.setItem("historico_" + usuario, JSON.stringify(lista));
+      alert("Resíduo registrado com sucesso!");
+      window.location.href = "historico-e-acompanhamento.html";
     });
 
-    document.querySelectorAll('.point-favorite').forEach(btn => {
-      btn.addEventListener('click', function() {
-        this.classList.toggle('active');
-        this.textContent = this.classList.contains('active') ? '★' : '☆';
-      });
-    });
+    var selTipo = document.getElementById("tipo");
+    if (selTipo) montarSelectCustom(selTipo);
 
-    var map = L.map('map').setView([-23.5505, -46.6333], 12);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap &copy; CARTO',
-      maxZoom: 18
-    }).addTo(map);
-
-    var points = [
-      { name: 'Ecoponto Centro', lat: -23.5475, lng: -46.6361, type: 'Papel, Plástico, Vidro' },
-      { name: 'PEV Zona Sul', lat: -23.5677, lng: -46.6486, type: 'Eletrônicos, Metal' },
-      { name: 'Coleta Seletiva - Jd. América', lat: -23.5587, lng: -46.6701, type: 'Papel, Plástico' },
-      { name: 'Ecoponto Zona Norte', lat: -23.5308, lng: -46.6301, type: 'Orgânico, Vidro' }
-    ];
-
-    points.forEach(function(p) {
-      L.marker([p.lat, p.lng])
-        .addTo(map)
-        .bindPopup('<strong>' + p.name + '</strong><br>' + p.type);
-    });
+    renderPontos();
   </script>
 </body>
 </html>
+
+
+

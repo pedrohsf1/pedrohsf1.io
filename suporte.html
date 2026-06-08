@@ -12,24 +12,28 @@
       <a href="pagina-principal.html" class="logo">
         <img src="images/navbar.png" alt="RE-CICLE">
       </a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
-      <nav class="nav" id="mainNav">
-        <a href="pagina-principal.html">Página Inicial</a>
-        <a href="registro-de-residuos.html">Mapa/Cadastro de Resíduos</a>
-        <a href="historico-e-acompanhamento.html">Histórico e Acompanhamento</a>
-        <a href="dicas-sustentaveis.html">Dicas Sustentáveis</a>
-        <a href="suporte.html" class="active">Suporte</a>
+      <button class="menu-toggle" id="alternarMenu" aria-label="Abrir menu">☰</button>
+      <nav class="nav" id="navPrincipal">
+        <a href="pagina-principal.html" data-perfis="tutor,candidato,ong,prefeitura">Página Inicial</a>
+        <a href="registro-de-residuos.html" data-perfis="candidato,ong">Mapa/Cadastro de Resíduos</a>
+        <a href="historico-e-acompanhamento.html" data-perfis="tutor,candidato,ong,prefeitura">Histórico e Acompanhamento</a>
+        <a href="dicas-sustentaveis.html" data-perfis="tutor,candidato,ong,prefeitura">Dicas Sustentáveis</a>
+        <a href="relatorios.html" data-perfis="tutor,candidato,ong,prefeitura">Relatórios</a>
+        <a href="gerenciar-usuario.html" data-perfis="tutor,candidato,ong,prefeitura">Gerenciar Usuário</a>
+        <a href="suporte.html" class="active" data-perfis="tutor,candidato,ong,prefeitura">Suporte</a>
+        <span class="nav-user" id="usuarioNav"></span>
+        <button class="btn-logout" id="btnSair" title="Sair">Sair</button>
       </nav>
     </div>
   </header>
 
   <main class="main">
-    <div class="page-header">
+    <div class="cabecalho-pagina">
       <h1>Suporte</h1>
       <p>Tire suas dúvidas ou entre em contato conosco.</p>
     </div>
 
-    <div class="split-layout">
+    <div class="layout-dividido">
       <div class="faq-list">
         <h3>Perguntas Frequentes</h3>
 
@@ -84,7 +88,7 @@
         </div>
       </div>
 
-      <div class="contact-section">
+      <div class="secao-contato">
         <h3>Entre em Contato</h3>
         <form id="contactForm">
           <div class="form-group">
@@ -118,8 +122,90 @@
 
 
   <script>
-    document.getElementById('menuToggle')?.addEventListener('click', function() {
-      document.getElementById('mainNav')?.classList.toggle('open');
+    function montarSelectCustom(sel) {
+      if (sel.multiple || sel.dataset.custom) return;
+      sel.dataset.custom = "1";
+      var wrapper = document.createElement("div");
+      wrapper.className = "cst-wrapper";
+      sel.parentNode.insertBefore(wrapper, sel);
+      wrapper.appendChild(sel);
+      sel.classList.add("cst-hide");
+
+      var trigger = document.createElement("div");
+      trigger.className = "cst-trigger";
+      trigger.textContent = sel.options[sel.selectedIndex]?.textContent || sel.options[0]?.textContent || "";
+      wrapper.insertBefore(trigger, sel);
+
+      var dropdown = document.createElement("div");
+      dropdown.className = "cst-dropdown";
+      wrapper.appendChild(dropdown);
+
+      function montarOpcoes() {
+        dropdown.innerHTML = "";
+        Array.from(sel.options).forEach(function(opt) {
+          if (opt.disabled && opt.value === "") return;
+          var div = document.createElement("div");
+          div.className = "cst-option" + (opt.selected ? " sel" : "");
+          div.textContent = opt.textContent;
+          div.dataset.value = opt.value;
+          div.addEventListener("click", function(e) {
+            e.stopPropagation();
+            sel.value = this.dataset.value;
+            trigger.textContent = this.textContent;
+            dropdown.querySelectorAll(".cst-option").forEach(function(o) { o.classList.remove("sel"); });
+            this.classList.add("sel");
+            fecharDropdown();
+            sel.dispatchEvent(new Event("change", { bubbles: true }));
+          });
+          dropdown.appendChild(div);
+        });
+      }
+      montarOpcoes();
+
+      function abrirDropdown() {
+        document.querySelectorAll(".cst-dropdown.open").forEach(function(d) {
+          if (d !== dropdown) { d.classList.remove("open"); d.previousElementSibling?.classList.remove("open"); }
+        });
+        dropdown.classList.add("open");
+        trigger.classList.add("open");
+      }
+      function fecharDropdown() {
+        dropdown.classList.remove("open");
+        trigger.classList.remove("open");
+      }
+
+      trigger.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (dropdown.classList.contains("open")) { fecharDropdown(); }
+        else { abrirDropdown(); }
+      });
+
+      document.addEventListener("click", function(e) {
+        if (!wrapper.contains(e.target)) fecharDropdown();
+      });
+
+      sel.addEventListener("customUpdate", montarOpcoes);
+    }
+
+    const papel = sessionStorage.getItem("papel");
+    const usuario = sessionStorage.getItem("usuario");
+    if (!papel || !usuario) { window.location.href = "index.html"; }
+
+    document.querySelectorAll("#navPrincipal a[data-perfis]").forEach(function(link) {
+      const perfis = link.getAttribute("data-perfis").split(",");
+      if (!perfis.includes(papel)) { link.style.display = "none"; }
+    });
+
+    var rotuloPapel = { tutor:"Tutor", candidato:"Candidato", ong:"ONG", prefeitura:"Prefeitura" };
+    document.getElementById('usuarioNav').textContent = rotuloPapel[papel] || papel;
+
+    document.getElementById('btnSair')?.addEventListener('click', function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    document.getElementById('alternarMenu')?.addEventListener('click', function() {
+      document.getElementById('navPrincipal')?.classList.toggle('open');
     });
 
     document.querySelectorAll('.faq-question').forEach(btn => {
@@ -136,6 +222,12 @@
       alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
       this.reset();
     });
+
+    var selMsg = document.getElementById("tipoMensagem");
+    if (selMsg) montarSelectCustom(selMsg);
   </script>
 </body>
 </html>
+
+
+
